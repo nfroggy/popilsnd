@@ -430,7 +430,7 @@ cmdTbl:         dw CmdSetNoteDur-1
                 dw CmdSetTimerOffset-1
                 dw CmdSetChanPtr-1
                 dw CmdMuteChan-1
-                dw CmdKeyOff?-1
+                dw CmdRest-1
                 dw CmdSetTranspose-1
                 dw CmdSub-1
                 dw CmdRet-1
@@ -612,7 +612,7 @@ loc_8442:                               ; CODE XREF: CmdMuteChan+F↑j
 ; =============== S U B R O U T I N E =======================================
 
 
-CmdKeyOff?:                             ; DATA XREF: ROM:8387↑t
+CmdRest:                             ; DATA XREF: ROM:8387↑t
                 TYA
                 PHA
                 LDY     channel
