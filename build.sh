@@ -12,7 +12,12 @@ then
 	exit -1
 fi
 
-ld65 -o out/popilsnd.bin -m out/popilsnd.map -C linker.cfg out/popilsnd.o
+ld65 -o out/popilsnd.bin -C linker.cfg --dbgfile out/popilsnd.dbg out/popilsnd.o
+if [ $? -ne 0 ]
+then
+	echo "linking popils sound engine failed"
+	exit -1
+fi
 
 echo "successfully built popils sound engine"
 
