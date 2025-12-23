@@ -1,38 +1,40 @@
 ; NES Popils sound engine disassembly
 ; This file is meant to be viewed with tabs set to 8 spaces
 
-		channel			equ	$F9
-		soundMode		equ	$FA	; 0 = music, 1 = sfx
 
-		sndNew			equ	$600
-		musNew			equ	$600
-		sfxNew			equ	$601
-		sndVolume		equ	$602
-		sndPlaying		equ	$604
-		sndChanMask		equ	$606
-		musChanMask		equ	$606
-		sfxChanMask		equ	$607
-		sndBank			equ	$608	; 2 bytes
-		chanPtrHi		equ	$60A	; 8 bytes
-		chanPtrLo		equ	$612	; 8 bytes
-		chanPulseSetupVal	equ	$61A	; 8 bytes
-		chanEnvType		equ	$622	; 8 bytes
-		chanEnvOffset		equ	$62A	; 8 bytes
-		chanAPUTimerOffset	equ	$632	; 8 bytes
-		chanSweepType		equ	$63A	; 8 bytes
-		chanNote		equ	$642	; 8 bytes
-		chanTimer		equ	$64A	; 8 bytes
-		chanEnvCursor		equ	$652	; 8 bytes
-		chanSweepCursor		equ	$65A	; 8 bytes
-		chanNoteDur		equ	$662	; 8 bytes
-		chanMuted		equ	$66A	; 4 bytes
-		sndTempo		equ	$66E	; 2 bytes
-		chanTranspose		equ	$670	; 8 bytes
-		chanParentPtrHi		equ	$678	; 8 bytes
-		chanParentPtrLo		equ	$680	; 8 bytes
-		chanSweep		equ	$688	; 8 bytes
+channel			=	$F9
+soundMode		=	$FA	; 0 = music, 1 = sfx
 
-		org	$811A
+		.segment "SOUND_RAM"
+sndNew:
+musNew:			.res	1
+sfxNew:			.res	1
+sndVolume:		.res	2
+sndPlaying:		.res	2
+sndChanMask:
+musChanMask:		.res	1
+sfxChanMask:		.res	1
+sndBank:		.res	2
+chanPtrHi:		.res	8
+chanPtrLo:		.res	8
+chanPulseSetupVal:	.res	8
+chanEnvType:		.res	8
+chanEnvOffset:		.res	8
+chanAPUTimerOffset:	.res	8
+chanSweepType:		.res	8
+chanNote:		.res	8
+chanTimer:		.res	8
+chanEnvCursor:		.res	8
+chanSweepCursor:	.res	8
+chanNoteDur:		.res	8
+chanMuted:		.res	4
+sndTempo:		.res	2
+chanTranspose:		.res	8
+chanParentPtrHi:	.res	8
+chanParentPtrLo:	.res	8
+chanSweep:		.res	8
+
+		.segment "SOUND_ENGINE"
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -128,10 +130,11 @@ loc_819B:                               ; CODE XREF: InitSound+6A↑j
 ; End of function InitSound
 
 ; ---------------------------------------------------------------------------
-chanBits:       db   1
-                db   2
-                db   4
-                db   8
+chanBits:
+		.byte   1
+                .byte   2
+                .byte   4
+                .byte   8
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -422,20 +425,20 @@ loc_836A:                               ; CODE XREF: ChanDoNext+29↑j
 ; End of function ChanDoNext
 
 ; ---------------------------------------------------------------------------
-cmdTbl:         dw CmdSetNoteDur-1
-                dw CmdSetEnvOffset-1
-                dw CmdSetEnvType-1
-                dw CmdSetPulseSetupVal-1
-                dw CmdSetTempo-1
-                dw CmdSetTimerOffset-1
-                dw CmdSetChanPtr-1
-                dw CmdMuteChan-1
-                dw CmdRest-1
-                dw CmdSetTranspose-1
-                dw CmdSub-1
-                dw CmdRet-1
-                dw CmdSetSweepType-1
-                dw CmdPlaySFX-1
+cmdTbl:         .word CmdSetNoteDur-1		; $80
+                .word CmdSetEnvOffset-1		; $81
+                .word CmdSetEnvType-1		; $82
+                .word CmdSetPulseSetupVal-1	; $83
+                .word CmdSetTempo-1		; $84
+                .word CmdSetTimerOffset-1	; $85
+                .word CmdSetChanPtr-1		; $86
+                .word CmdMuteChan-1		; $87
+                .word CmdRest-1			; $88
+                .word CmdSetTranspose-1		; $89
+                .word CmdSub-1			; $8a
+                .word CmdRet-1			; $8b
+                .word CmdSetSweepType-1		; $8c
+                .word CmdPlaySFX-1		; $8d
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -635,10 +638,10 @@ loc_8457:                               ; CODE XREF: CmdKeyOff?+7↑j
 ; End of function CmdKeyOff?
 
 ; ---------------------------------------------------------------------------
-unk_8468:       db  $E
-                db  $D
-                db  $B
-                db   7
+unk_8468:       .byte  $E
+                .byte  $D
+                .byte  $B
+                .byte   7
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -696,10 +699,10 @@ loc_848E:                               ; CODE XREF: UpdateChanVolume+6↑j
 ; End of function UpdateChanVolume
 
 ; ---------------------------------------------------------------------------
-off_84A8:       dw Pulse1Volume
-                dw Pulse2Volume
-                dw TriangleVolume
-                dw NoiseVolume
+off_84A8:       .word Pulse1Volume
+                .word Pulse2Volume
+                .word TriangleVolume
+                .word NoiseVolume
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -771,10 +774,10 @@ loc_84DA:                               ; CODE XREF: PlayChanNote+9↑j
 ; End of function PlayChanNote
 
 ; ---------------------------------------------------------------------------
-word_84E6:      dw Pulse1PlayNote-1
-                dw Pulse2PlayNote-1
-                dw TrianglePlayNote-1
-                dw NoisePlayNote-1
+word_84E6:      .word Pulse1PlayNote-1
+                .word Pulse2PlayNote-1
+                .word TrianglePlayNote-1
+                .word NoisePlayNote-1
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -902,199 +905,199 @@ NoisePlayNote:                          ; DATA XREF: ROM:84EC↑t
 ; End of function NoisePlayNote
 
 ; ---------------------------------------------------------------------------
-NoteTbl:        db $F2               ; DATA XREF: Pulse1PlayNote+27↑t
+NoteTbl:        .byte $F2               ; DATA XREF: Pulse1PlayNote+27↑t
                                         ; Pulse2PlayNote+27↑t ...
-unk_85A3:       db   7
-                db $80
-                db   7
-                db $14
-                db   7
-                db $AE
-                db   6
-                db $43 ; C
-                db   6
-                db $F4
-                db   5
-                db $9E
-                db   5
-                db $4E ; N
-                db   5
-                db   3
-                db   5
-                db $BA
-                db   4
-                db $76 ; v
-                db   4
-                db $36 ; 6
-                db   4
-                db $F9
-                db   3
-                db $C0
-                db   3
-                db $8A
-                db   3
-                db $57 ; W
-                db   3
-                db $21 ; !
-                db   3
-                db $FA
-                db   2
-                db $CF
-                db   2
-                db $A7
-                db   2
-                db $81
-                db   2
-                db $5D ; ]
-                db   2
-                db $3B ; ;
-                db   2
-                db $1B
-                db   2
-                db $FC
-                db   1
-                db $E0
-                db   1
-                db $C5
-                db   1
-                db $AB
-                db   1
-                db $90
-                db   1
-                db $7D ; }
-                db   1
-                db $67 ; g
-                db   1
-                db $53 ; S
-                db   1
-                db $40 ; @
-                db   1
-                db $2E ; .
-                db   1
-                db $1D
-                db   1
-                db  $D
-                db   1
-                db $FD
-                db   0
-                db $F0
-                db   0
-                db $E2
-                db   0
-                db $D5
-                db   0
-                db $C8
-                db   0
-                db $BE
-                db   0
-                db $B3
-                db   0
-                db $A9
-                db   0
-                db $A0
-                db   0
-                db $97
-                db   0
-                db $8E
-                db   0
-                db $86
-                db   0
-                db $7F ; 
-                db   0
-                db $78 ; x
-                db   0
-                db $71 ; q
-                db   0
-                db $6A ; j
-                db   0
-                db $64 ; d
-                db   0
-                db $5F ; _
-                db   0
-                db $59 ; Y
-                db   0
-                db $54 ; T
-                db   0
-                db $50 ; P
-                db   0
-                db $4B ; K
-                db   0
-                db $47 ; G
-                db   0
-                db $43 ; C
-                db   0
-                db $3F ; ?
-                db   0
-                db $3C ; <
-                db   0
-                db $38 ; 8
-                db   0
-                db $35 ; 5
-                db   0
-                db $32 ; 2
-                db   0
-                db $2F ; /
-                db   0
-                db $2C ; ,
-                db   0
-                db $2A ; *
-                db   0
-                db $28 ; (
-                db   0
-                db $25 ; %
-                db   0
-                db $23 ; #
-                db   0
-                db $21 ; !
-                db   0
-                db $1F
-                db   0
-                db $1E
-                db   0
-                db $1C
-                db   0
-                db $1A
-                db   0
-                db $19
-                db   0
-                db $17
-                db   0
-                db $16
-                db   0
-                db $15
-                db   0
-                db $14
-                db   0
-                db $12
-                db   0
-                db $11
-                db   0
-                db $10
-                db   0
-                db  $F
-                db   0
-                db  $F
-                db   0
-                db  $E
-                db   0
-                db  $D
-                db   0
-                db  $C
-                db   0
-                db  $B
-                db   0
-                db  $B
-                db   0
-                db  $A
-                db   0
-                db  $A
-                db   0
-                db   9
-                db   0
-                db   8
-                db   0
-                db   8
-                db   0
+unk_85A3:       .byte   7
+                .byte $80
+                .byte   7
+                .byte $14
+                .byte   7
+                .byte $AE
+                .byte   6
+                .byte $43 ; C
+                .byte   6
+                .byte $F4
+                .byte   5
+                .byte $9E
+                .byte   5
+                .byte $4E ; N
+                .byte   5
+                .byte   3
+                .byte   5
+                .byte $BA
+                .byte   4
+                .byte $76 ; v
+                .byte   4
+                .byte $36 ; 6
+                .byte   4
+                .byte $F9
+                .byte   3
+                .byte $C0
+                .byte   3
+                .byte $8A
+                .byte   3
+                .byte $57 ; W
+                .byte   3
+                .byte $21 ; !
+                .byte   3
+                .byte $FA
+                .byte   2
+                .byte $CF
+                .byte   2
+                .byte $A7
+                .byte   2
+                .byte $81
+                .byte   2
+                .byte $5D ; ]
+                .byte   2
+                .byte $3B ; ;
+                .byte   2
+                .byte $1B
+                .byte   2
+                .byte $FC
+                .byte   1
+                .byte $E0
+                .byte   1
+                .byte $C5
+                .byte   1
+                .byte $AB
+                .byte   1
+                .byte $90
+                .byte   1
+                .byte $7D ; }
+                .byte   1
+                .byte $67 ; g
+                .byte   1
+                .byte $53 ; S
+                .byte   1
+                .byte $40 ; @
+                .byte   1
+                .byte $2E ; .
+                .byte   1
+                .byte $1D
+                .byte   1
+                .byte  $D
+                .byte   1
+                .byte $FD
+                .byte   0
+                .byte $F0
+                .byte   0
+                .byte $E2
+                .byte   0
+                .byte $D5
+                .byte   0
+                .byte $C8
+                .byte   0
+                .byte $BE
+                .byte   0
+                .byte $B3
+                .byte   0
+                .byte $A9
+                .byte   0
+                .byte $A0
+                .byte   0
+                .byte $97
+                .byte   0
+                .byte $8E
+                .byte   0
+                .byte $86
+                .byte   0
+                .byte $7F ; 
+                .byte   0
+                .byte $78 ; x
+                .byte   0
+                .byte $71 ; q
+                .byte   0
+                .byte $6A ; j
+                .byte   0
+                .byte $64 ; d
+                .byte   0
+                .byte $5F ; _
+                .byte   0
+                .byte $59 ; Y
+                .byte   0
+                .byte $54 ; T
+                .byte   0
+                .byte $50 ; P
+                .byte   0
+                .byte $4B ; K
+                .byte   0
+                .byte $47 ; G
+                .byte   0
+                .byte $43 ; C
+                .byte   0
+                .byte $3F ; ?
+                .byte   0
+                .byte $3C ; <
+                .byte   0
+                .byte $38 ; 8
+                .byte   0
+                .byte $35 ; 5
+                .byte   0
+                .byte $32 ; 2
+                .byte   0
+                .byte $2F ; /
+                .byte   0
+                .byte $2C ; ,
+                .byte   0
+                .byte $2A ; *
+                .byte   0
+                .byte $28 ; (
+                .byte   0
+                .byte $25 ; %
+                .byte   0
+                .byte $23 ; #
+                .byte   0
+                .byte $21 ; !
+                .byte   0
+                .byte $1F
+                .byte   0
+                .byte $1E
+                .byte   0
+                .byte $1C
+                .byte   0
+                .byte $1A
+                .byte   0
+                .byte $19
+                .byte   0
+                .byte $17
+                .byte   0
+                .byte $16
+                .byte   0
+                .byte $15
+                .byte   0
+                .byte $14
+                .byte   0
+                .byte $12
+                .byte   0
+                .byte $11
+                .byte   0
+                .byte $10
+                .byte   0
+                .byte  $F
+                .byte   0
+                .byte  $F
+                .byte   0
+                .byte  $E
+                .byte   0
+                .byte  $D
+                .byte   0
+                .byte  $C
+                .byte   0
+                .byte  $B
+                .byte   0
+                .byte  $B
+                .byte   0
+                .byte  $A
+                .byte   0
+                .byte  $A
+                .byte   0
+                .byte   9
+                .byte   0
+                .byte   8
+                .byte   0
+                .byte   8
+                .byte   0
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -1126,10 +1129,10 @@ loc_8672:                               ; CODE XREF: UpdateChanPitch+9↑j
 ; End of function UpdateChanPitch
 
 ; ---------------------------------------------------------------------------
-word_867E:      dw Pulse1Pitch-1
-                dw Pulse2Pitch-1
-                dw TrianglePitch-1
-                dw NoisePitch-1
+word_867E:      .word Pulse1Pitch-1
+                .word Pulse2Pitch-1
+                .word TrianglePitch-1
+                .word NoisePitch-1
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -1224,1244 +1227,1297 @@ NoisePitch:
 ; End of function TrianglePitch
 
 ; ---------------------------------------------------------------------------
-envDataTbl:     dw unk_875C
-                dw unk_875D
-                dw unk_876E
-                dw unk_8780
-                dw unk_8782
-                dw unk_8784
-                dw unk_8797
-                dw unk_879E
-                dw unk_879F
-                dw unk_87A0
-                dw unk_87A1
-                dw unk_87A6
-                dw unk_87B1
-                dw unk_87B8
-                dw unk_87C7
-                dw unk_87E3
-                dw unk_87FB
-                dw unk_880D
-                dw unk_881D
-                dw unk_8828
-                dw unk_883D
-                dw unk_8854
-                dw unk_8866
-                dw unk_886C
-                dw unk_8872
-                dw unk_8895
-                dw unk_88A4
-                dw unk_88BA
-                dw unk_88C7
-                dw unk_88D4
-                dw unk_88E6
-                dw unk_88EA
-                dw unk_88F5
-                dw unk_8903
-                dw unk_890B
-                dw unk_8916
-                dw unk_8938
-                dw unk_8950
-                dw unk_8954
-                dw unk_8964
-                dw unk_8974
-unk_875C:       db  $F               ; DATA XREF: ROM:envDataTbl↑o
-unk_875D:       db  $F               ; DATA XREF: ROM:870C↑o
-                db  $F
-                db  $E
-                db  $E
-                db  $D
-                db  $D
-                db  $C
-                db  $C
-                db  $B
-                db  $A
-                db   9
-                db   8
-                db   7
-                db   6
-                db   5
-                db   3
-                db   0
-unk_876E:       db  $F               ; DATA XREF: ROM:870E↑o
-                db  $F
-                db  $F
-                db  $F
-                db  $E
-                db  $E
-                db  $E
-                db  $D
-                db  $D
-                db  $C
-                db  $B
-                db  $A
-                db   9
-                db   9
-                db  $A
-                db  $B
-                db  $C
-                db  $D
-unk_8780:       db  $F               ; DATA XREF: ROM:8710↑o
-                db   9
-unk_8782:       db   9               ; DATA XREF: ROM:8712↑o
-                db  $F
-unk_8784:       db   4               ; DATA XREF: ROM:8714↑o
-                db   9
-                db  $F
-                db  $F
-                db  $E
-                db  $D
-                db  $C
-                db  $B
-                db  $A
-                db   9
-                db   8
-                db   7
-                db   6
-                db   5
-                db   4
-                db   3
-                db   2
-                db   1
-                db   0
-unk_8797:       db  $F               ; DATA XREF: ROM:8716↑o
-                db  $D
-                db  $B
-                db   9
-                db   6
-                db   3
-                db   0
-unk_879E:       db  $C               ; DATA XREF: ROM:8718↑o
-unk_879F:       db   9               ; DATA XREF: ROM:871A↑o
-unk_87A0:       db   6               ; DATA XREF: ROM:871C↑o
-unk_87A1:       db  $D               ; DATA XREF: ROM:871E↑o
-                db  $F
-                db  $F
-                db  $E
-                db  $D
-unk_87A6:       db  $C               ; DATA XREF: ROM:8720↑o
-                db  $E
-                db  $F
-                db  $F
-                db  $E
-                db  $E
-                db  $D
-                db  $D
-                db  $C
-                db  $C
-                db  $B
-unk_87B1:       db  $F               ; DATA XREF: ROM:8722↑o
-                db  $F
-                db  $F
-                db  $E
-                db  $E
-                db  $D
-                db  $C
-unk_87B8:       db  $F               ; DATA XREF: ROM:8724↑o
-                db  $E
-                db  $D
-                db  $C
-                db  $B
-                db  $A
-                db   9
-                db   8
-                db   7
-                db   6
-                db   5
-                db   4
-                db   3
-                db   2
-                db   1
-unk_87C7:       db  $F               ; DATA XREF: ROM:8726↑o
-                db  $F
-                db  $E
-                db  $E
-                db  $D
-                db  $D
-                db  $C
-                db  $C
-                db  $B
-                db  $B
-                db  $A
-                db  $A
-                db   9
-                db   9
-                db   8
-                db   8
-                db   7
-                db   7
-                db   6
-                db   6
-                db   4
-                db   4
-                db   3
-                db   3
-                db   2
-                db   2
-                db   1
-                db   1
-unk_87E3:       db  $C               ; DATA XREF: ROM:8728↑o
-                db  $C
-                db  $B
-                db  $B
-                db  $A
-                db  $A
-                db   9
-                db   9
-                db   8
-                db   8
-                db   7
-                db   7
-                db   6
-                db   6
-                db   5
-                db   5
-                db   4
-                db   4
-                db   3
-                db   3
-                db   2
-                db   2
-                db   1
-                db   1
-unk_87FB:       db  $F               ; DATA XREF: ROM:872A↑o
-                db  $F
-                db  $F
-                db  $E
-                db  $E
-                db  $E
-                db  $D
-                db  $D
-                db  $D
-                db  $C
-                db  $C
-                db  $C
-                db  $B
-                db  $B
-                db   9
-                db   9
-                db   7
-                db   6
-unk_880D:       db  $F               ; DATA XREF: ROM:872C↑o
-                db  $F
-                db  $F
-                db  $E
-                db  $E
-                db  $E
-                db  $D
-                db  $D
-                db  $C
-                db  $C
-                db  $C
-                db  $B
-                db  $B
-                db  $A
-                db   9
-                db   8
-unk_881D:       db  $F               ; DATA XREF: ROM:872E↑o
-                db  $F
-                db  $F
-                db  $E
-                db  $E
-                db  $D
-                db  $C
-                db  $B
-                db  $A
-                db   9
-                db   8
-unk_8828:       db  $F               ; DATA XREF: ROM:8730↑o
-                db  $F
-                db  $F
-                db  $E
-                db  $E
-                db  $E
-                db  $D
-                db  $D
-                db  $C
-                db  $C
-                db  $B
-                db  $A
-                db   9
-                db   7
-                db   6
-                db   5
-                db   4
-                db   3
-                db   2
-                db   1
-                db   0
-unk_883D:       db  $F               ; DATA XREF: ROM:8732↑o
-                db  $F
-                db  $F
-                db  $E
-                db  $E
-                db  $D
-                db  $C
-                db  $B
-                db  $A
-                db   9
-                db   8
-                db   8
-                db   8
-                db   8
-                db   8
-                db   8
-                db   9
-                db  $A
-                db  $B
-                db  $C
-                db  $D
-                db  $E
-                db  $F
-unk_8854:       db   5               ; DATA XREF: ROM:8734↑o
-                db  $A
-                db  $F
-                db  $F
-                db  $E
-                db  $E
-                db  $D
-                db  $D
-                db  $D
-                db  $C
-                db  $C
-                db  $C
-                db  $B
-                db  $B
-                db   9
-                db   9
-                db   7
-                db   6
-unk_8866:       db  $F               ; DATA XREF: ROM:8736↑o
-                db  $C
-                db   9
-                db   6
-                db   3
-                db   0
-unk_886C:       db  $F               ; DATA XREF: ROM:8738↑o
-                db  $D
-                db   9
-                db   6
-                db   3
-                db   9
-unk_8872:       db   5               ; DATA XREF: ROM:873A↑o
-                db  $A
-                db  $E
-                db  $F
-                db  $F
-                db  $F
-                db  $E
-                db  $E
-                db  $E
-                db  $D
-                db  $D
-                db  $D
-                db  $D
-                db  $C
-                db  $C
-                db  $C
-                db  $B
-                db  $B
-                db  $B
-                db  $A
-                db  $A
-                db  $A
-                db   9
-                db   9
-                db   8
-                db   8
-                db   7
-                db   7
-                db   7
-                db   7
-                db   7
-                db   6
-                db   6
-                db   6
-                db   6
-unk_8895:       db  $F               ; DATA XREF: ROM:873C↑o
-                db  $E
-                db  $D
-                db  $C
-                db  $B
-                db  $A
-                db   9
-                db   8
-                db   7
-                db   6
-                db   5
-                db   4
-                db   3
-                db   2
-                db   1
-unk_88A4:       db   4               ; DATA XREF: ROM:873E↑o
-                db   8
-                db   8
-                db  $C
-                db  $C
-                db  $D
-                db  $D
-                db  $D
-                db  $E
-                db  $E
-                db  $E
-                db  $E
-                db  $E
-                db  $F
-                db  $F
-                db  $F
-                db  $F
-                db  $F
-                db  $F
-                db  $F
-                db  $F
-                db  $E
-unk_88BA:       db   8               ; DATA XREF: ROM:8740↑o
-                db  $C
-                db  $E
-                db  $F
-                db  $E
-                db  $D
-                db  $C
-                db  $C
-                db  $A
-                db  $A
-                db   9
-                db   9
-                db   9
-unk_88C7:       db   7               ; DATA XREF: ROM:8742↑o
-                db   9
-                db  $B
-                db  $D
-                db  $E
-                db  $F
-                db  $F
-                db  $D
-                db  $C
-                db  $A
-                db   9
-                db   8
-                db   8
-unk_88D4:       db   5               ; DATA XREF: ROM:8744↑o
-                db   7
-                db   9
-                db  $B
-                db  $D
-                db  $F
-                db  $F
-                db  $E
-                db  $E
-                db  $D
-                db  $D
-                db  $C
-                db  $C
-                db  $B
-                db  $B
-                db   9
-                db   7
-                db   6
-unk_88E6:       db  $F               ; DATA XREF: ROM:8746↑o
-                db  $C
-                db   9
-                db   6
-unk_88EA:       db  $F               ; DATA XREF: ROM:8748↑o
-                db  $D
-                db  $C
-                db  $A
-                db   8
-                db   6
-                db   5
-                db   4
-                db   3
-                db   2
-                db   1
-unk_88F5:       db  $F               ; DATA XREF: ROM:874A↑o
-                db  $D
-                db  $C
-                db  $B
-                db  $A
-                db   9
-                db   8
-                db   7
-                db   6
-                db   5
-                db   4
-                db   3
-                db   2
-                db   1
-unk_8903:       db   7               ; DATA XREF: ROM:874C↑o
-                db   6
-                db   5
-                db   4
-                db   3
-                db   2
-                db   1
-                db   0
-unk_890B:       db   5               ; DATA XREF: ROM:874E↑o
-                db   9
-                db  $B
-                db  $D
-                db  $E
-                db  $F
-                db  $F
-                db  $E
-                db  $E
-                db  $D
-                db  $C
-unk_8916:       db  $F               ; DATA XREF: ROM:8750↑o
-                db  $F
-                db  $F
-                db  $F
-                db  $F
-                db  $F
-                db  $F
-                db  $F
-                db  $F
-                db  $F
-                db  $E
-                db  $E
-                db  $E
-                db  $E
-                db  $D
-                db  $D
-                db  $D
-                db  $C
-                db  $C
-                db  $B
-                db  $B
-                db  $A
-                db  $A
-                db   9
-                db   9
-                db   8
-                db   7
-                db   6
-                db   5
-                db   4
-                db   3
-                db   2
-                db   1
-                db   0
-unk_8938:       db  $F               ; DATA XREF: ROM:8752↑o
-                db  $E
-                db  $D
-                db  $C
-                db  $B
-                db  $A
-                db  $A
-                db   9
-                db   9
-                db   8
-                db   8
-                db   8
-                db   7
-                db   7
-                db   7
-                db   6
-                db   6
-                db   6
-                db   6
-                db   5
-                db   5
-                db   5
-                db   5
-                db   4
-unk_8950:       db  $F               ; DATA XREF: ROM:8754↑o
-                db  $A
-                db   5
-                db   0
-unk_8954:       db  $F               ; DATA XREF: ROM:8756↑o
-                db  $E
-                db  $D
-                db  $C
-                db  $B
-                db  $A
-                db   9
-                db   8
-                db   7
-                db   6
-                db   5
-                db   4
-                db   3
-                db   2
-                db   1
-                db   0
-unk_8964:       db  $B               ; DATA XREF: ROM:8758↑o
-                db  $F
-                db  $F
-                db  $F
-                db  $F
-                db  $E
-                db  $E
-                db  $E
-                db  $E
-                db  $E
-                db  $D
-                db  $D
-                db  $D
-                db  $D
-                db  $D
-                db  $C
-unk_8974:       db  $F               ; DATA XREF: ROM:875A↑o
-                db  $E
-                db  $D
-                db  $C
-                db  $B
-                db  $A
-                db  $A
-                db  $A
-                db   9
-                db   9
-                db   9
-                db   8
-                db   8
-                db   8
-                db   7
-envEndPointTbl: db   1
-                db $11
-                db $12
-                db   2
-                db   2
-                db $13
-                db   7
-                db   1
-                db   1
-                db   1
-                db   5
-                db  $B
-                db   7
-                db  $F
-                db $1C
-                db $18
-                db $12
-                db $10
-                db  $B
-                db $15
-                db $17
-                db $12
-                db   6
-                db   6
-                db $23 ; #
-                db  $F
-                db $16
-                db  $D
-                db  $D
-                db $12
-                db   5
-                db  $A
-                db  $D
-                db   7
-                db  $A
-                db $21 ; !
-                db $17
-                db   4
-                db $10
-                db $10
-                db  $E
-envLoopPointTbl:db   0
-                db $10
-                db $10
-                db   0
-                db   0
-                db $12
-                db   6
-                db   0
-                db   0
-                db   0
-                db   4
-                db  $A
-                db   0
-                db   0
-                db $1B
-                db $17
-                db $11
-                db  $F
-                db  $A
-                db $14
-                db $16
-                db $11
-                db   5
-                db   4
-                db $22 ; "
-                db  $E
-                db $15
-                db  $C
-                db  $C
-                db $11
-                db   4
-                db   9
-                db  $C
-                db   6
-                db   9
-                db $20
-                db $16
-                db   3
-                db  $F
-                db  $F
-                db  $D
-sweepDataTbl:   dw unk_8A03
-                dw unk_8A04
-                dw unk_8A20
-                dw unk_8A28
-                dw unk_8A38
-                dw unk_8A3A
-                dw unk_8A3C
-                dw unk_8A44
-                dw unk_8A4C
-                dw unk_8A54
-                dw unk_8A56
-                dw unk_8A6C
-                dw unk_8A76
-                dw unk_8A80
-                dw unk_8A8A
-                dw unk_8A8C
-                dw unk_8AAB
-                dw unk_8ACA
-                dw unk_8ACB
-                dw unk_8ACC
-                dw unk_8ACD
-                dw unk_8ACE
-                dw unk_8ACF
-unk_8A03:       db   0               ; DATA XREF: ROM:sweepDataTbl↑o
-unk_8A04:       db   0               ; DATA XREF: ROM:89D7↑o
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   1
-                db   1
-                db   0
-                db   0
-                db $FF
-                db $FF
-                db   0
-                db   0
-                db   1
-                db   1
-                db   2
-                db   2
-                db   1
-                db   1
-                db   0
-                db   0
-                db $FF
-                db $FF
-                db $FE
-                db $FE
-                db $FF
-                db $FF
-unk_8A20:       db   0               ; DATA XREF: ROM:89D9↑o
-                db   1
-                db   2
-                db   1
-                db   0
-                db $FF
-                db $FE
-                db $FF
-unk_8A28:       db   0               ; DATA XREF: ROM:89DB↑o
-                db   0
-                db   0
-                db   0
-                db   1
-                db   1
-                db   1
-                db   1
-                db   0
-                db   0
-                db   0
-                db   0
-                db $FF
-                db $FF
-                db $FF
-                db $FF
-unk_8A38:       db   1               ; DATA XREF: ROM:89DD↑o
-                db $FF
-unk_8A3A:       db   0               ; DATA XREF: ROM:89DF↑o
-                db $FF
-unk_8A3C:       db   0               ; DATA XREF: ROM:89E1↑o
-                db   1
-                db   0
-                db   0
-                db   0
-                db $FF
-                db   0
-                db   0
-unk_8A44:       db   0               ; DATA XREF: ROM:89E3↑o
-                db   0
-                db   0
-                db   1
-                db   1
-                db   1
-                db   0
-                db   0
-unk_8A4C:       db   1               ; DATA XREF: ROM:89E5↑o
-                db   1
-                db   1
-                db   0
-                db   0
-                db   0
-                db   1
-                db   1
-unk_8A54:       db $FF               ; DATA XREF: ROM:89E7↑o
-                db   1
-unk_8A56:       db   0               ; DATA XREF: ROM:89E9↑o
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   1
-                db   1
-                db   1
-                db   1
-                db   1
-unk_8A6C:       db   0               ; DATA XREF: ROM:89EB↑o
-                db   0
-                db   0
-                db   1
-                db   1
-                db   1
-                db   1
-                db   1
-                db   0
-                db   0
-unk_8A76:       db   1               ; DATA XREF: ROM:89ED↑o
-                db   1
-                db   1
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   1
-                db   1
-unk_8A80:       db $FD               ; DATA XREF: ROM:89EF↑o
-                db $FE
-                db $FF
-                db   1
-                db   2
-                db   3
-                db   2
-                db   1
-                db $FF
-                db $FE
-unk_8A8A:       db $FD               ; DATA XREF: ROM:89F1↑o
-                db   3
-unk_8A8C:       db   0               ; DATA XREF: ROM:89F3↑o
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   1
-                db   1
-                db   0
-                db   0
-                db   0
-                db   1
-                db   1
-                db   1
-                db   0
-                db   0
-                db   0
-                db   0
-                db   1
-                db   1
-                db   1
-                db   1
-                db   1
-unk_8AAB:       db   0               ; DATA XREF: ROM:89F5↑o
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-                db   1
-                db   0
-                db   0
-                db   1
-                db   1
-                db   1
-                db   0
-                db   0
-                db   0
-                db   1
-                db   1
-                db   1
-                db   1
-                db   0
-                db   0
-                db   0
-                db   0
-                db   0
-unk_8ACA:       db   1               ; DATA XREF: ROM:89F7↑o
-unk_8ACB:       db   2               ; DATA XREF: ROM:89F9↑o
-unk_8ACC:       db   3               ; DATA XREF: ROM:89FB↑o
-unk_8ACD:       db $FF               ; DATA XREF: ROM:89FD↑o
-unk_8ACE:       db $FE               ; DATA XREF: ROM:89FF↑o
-unk_8ACF:       db $FD               ; DATA XREF: ROM:8A01↑o
-sweepEndPointTbl:db 1
-                db 28
-                db 8
-                db 16
-                db 2
-                db 2
-                db 8
-                db 8
-                db 8
-                db 2
-                db 22
-                db 10
-                db 10
-                db 10
-                db 2
-                db 30
-                db 30
-                db 1
-                db 1
-                db 1
-                db 1
-                db 1
-                db 1
-sweepLoopPointTbl:db 0
-                db 12
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 11
-                db 0
-                db 0
-                db 0
-                db 0
-                db 21
-                db 21
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 51
-bankTbl:        db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 2
-                db 2
-                db 0
-                db 0
-                db 0
-                db 0
-                db 0
-                db 2
-                db 3
-                db 3
-                db 3
-                db 3
-                db 3
-                db 3
-                db 3
-                db 3
-                db 0
-                db 0
-                db 3
-                db 2
-                db 2
-                db 1
-                db 1
-                db 1
-                db 0
-                db 0
-                db 0
-SoundDataTbl:   dw 0                 ; DATA XREF: InitSound+24↑t
-                                        ; InitSound+2A↑t
-                dw 0
-                dw 0
-                dw 0
-                dw $A000
-                dw $A013
-                dw 0
-                dw 0
-                dw 0
-                dw $A026
-                dw 0
-                dw 0
-                dw 0
-                dw $A031
-                dw 0
-                dw 0
-                dw 0
-                dw $A05D
-                dw $A04E
-                dw 0
-                dw 0
-                dw 0
-                dw $A06C
-                dw 0
-                dw 0
-                dw 0
-                dw $A0B5
-                dw 0
-                dw 0
-                dw 0
-                dw 0
-                dw $A0D6
-                dw 0
-                dw 0
-                dw $A1C5
-                dw 0
-                dw $A226
-                dw $A259
-                dw 0
-                dw $A28C
-                dw $A678
-                dw $A853
-                dw $AA42
-                dw 0
-                dw $AC7D
-                dw $ACA8
-                dw $ACCF
-                dw 0
-                dw $AD00
-                dw $AD49
-                dw $AD90
-                dw 0
-                dw $ADED
-                dw $AE12
-                dw $AE37
-                dw 0
-                dw $AE5A
-                dw $AE9D
-                dw $AEDE
-                dw 0
-                dw 0
-                dw $A2B9
-                dw 0
-                dw $A2DE
-                dw 0
-                dw $A2EF
-                dw 0
-                dw $A2F8
-                dw 0
-                dw $A30B
-                dw 0
-                dw $A320
-                dw $AF1B
-                dw $AF40
-                dw $AF63
-                dw 0
-                dw 0
-                dw $A333
-                dw 0
-                dw $A346
-                dw 0
-                dw $A359
-                dw 0
-                dw 0
-                dw 0
-                dw 0
-                dw $A388
-                dw 0
-                dw $AF86
-                dw $B09F
-                dw $B11E
-                dw 0
-                dw $B4B8
-                dw $B54B
-                dw $B5D4
-                dw 0
-                dw $B18D
-                dw $B26A
-                dw $B347
-                dw 0
-                dw $A4D2
-                dw $A537
-                dw 0
-                dw 0
-                dw 0
-                dw $A59E
-                dw 0
-                dw $A5C5
-                dw $B6C7
-                dw $B73A
-                dw $B7FD
-                dw 0
-                dw $B86C
-                dw $B912
-                dw $B9F0
-                dw 0
-                dw $B8C5
-                dw $B965
-                dw $BA3D
-                dw 0
-                dw 0
-                dw 0
-                dw $A5EC
-                dw 0
-                dw 0
-                dw $A5FF
-                dw 0
-                dw 0
-                dw $A60E
-                dw $A623
-                dw $A637
-                dw $A637
-                dw $AD24
-                dw $AE47
-                dw $AF80
-                dw $B12F
-                dw $B30C
-                dw $B473
-                dw $B5F6
-                dw 0
-                dw $BA8E
-                dw $BABF
-                dw $BAEE
-                dw 0
-                dw $BB1F
-                dw $BBB8
-                dw $BC2B
-                dw 0
-                dw $BCCC
-                dw $BD1F
-                dw $BD74
-                dw 0
-                dw $BDCF
-                dw $BE18
-                dw $BE5B
-                dw 0
-                dw $BE9E
-                dw $BEF5
-                dw $BF4C
-                dw 0
-                dw $B7A8
-                dw $B823
-                dw $B880
-                dw 0
-                dw $A000
-                dw $A2A1
-                dw $A5A8
-                dw $A933
-                dw $AB44
-                dw $AB83
-                dw $ABC0
-                dw 0
-                dw $AC01
-                dw $AC20
-                dw $AC3D
-                dw 0
-                dw $AC62
-                dw $ACBF
-                dw $AD16
-                dw 0
-                dw $AD73
-                dw $AD84
-                dw $AD97
-                dw 0
-                dw $ADA4
-                dw $ADEF
-                dw $AE3A
-                dw 0
-                dw $AE85
-                dw $AEF6
-                dw $AF65
-                dw 0
-                dw $AFAA
-                dw $AFFB
-                dw $B056
-                dw 0
-                dw 0
-                dw 0
-                dw 0
-                dw $A63C
-                dw 0
-                dw 0
-                dw 0
-                dw $A64D
-                dw $B0D9
-                dw $B1B0
-                dw $B1D1
-                dw 0
-                dw $A000
-                dw $A28F
-                dw $A5F2
-                dw $A7BF
-                dw $AA24
-                dw $AAC3
-                dw $AB62
-                dw $ABCB
-                dw $A175
-                dw $A22C
-                dw $A2E3
-                dw $A3D6
-                dw $A4A9
-                dw $ADA6
-                dw $B4EB
-                dw $BC02
-                dw $A000
-                dw $A087
-                dw $A10E
-                dw 0
-                db $81
-                db $20
-                db  $F
+envDataTbl:     .word unk_875C
+                .word unk_875D
+                .word unk_876E
+                .word unk_8780
+                .word unk_8782
+                .word unk_8784
+                .word unk_8797
+                .word unk_879E
+                .word unk_879F
+                .word unk_87A0
+                .word unk_87A1
+                .word unk_87A6
+                .word unk_87B1
+                .word unk_87B8
+                .word unk_87C7
+                .word unk_87E3
+                .word unk_87FB
+                .word unk_880D
+                .word unk_881D
+                .word unk_8828
+                .word unk_883D
+                .word unk_8854
+                .word unk_8866
+                .word unk_886C
+                .word unk_8872
+                .word unk_8895
+                .word unk_88A4
+                .word unk_88BA
+                .word unk_88C7
+                .word unk_88D4
+                .word unk_88E6
+                .word unk_88EA
+                .word unk_88F5
+                .word unk_8903
+                .word unk_890B
+                .word unk_8916
+                .word unk_8938
+                .word unk_8950
+                .word unk_8954
+                .word unk_8964
+                .word unk_8974
+unk_875C:       .byte  $F               ; DATA XREF: ROM:envDataTbl↑o
+unk_875D:       .byte  $F               ; DATA XREF: ROM:870C↑o
+                .byte  $F
+                .byte  $E
+                .byte  $E
+                .byte  $D
+                .byte  $D
+                .byte  $C
+                .byte  $C
+                .byte  $B
+                .byte  $A
+                .byte   9
+                .byte   8
+                .byte   7
+                .byte   6
+                .byte   5
+                .byte   3
+                .byte   0
+unk_876E:       .byte  $F               ; DATA XREF: ROM:870E↑o
+                .byte  $F
+                .byte  $F
+                .byte  $F
+                .byte  $E
+                .byte  $E
+                .byte  $E
+                .byte  $D
+                .byte  $D
+                .byte  $C
+                .byte  $B
+                .byte  $A
+                .byte   9
+                .byte   9
+                .byte  $A
+                .byte  $B
+                .byte  $C
+                .byte  $D
+unk_8780:       .byte  $F               ; DATA XREF: ROM:8710↑o
+                .byte   9
+unk_8782:       .byte   9               ; DATA XREF: ROM:8712↑o
+                .byte  $F
+unk_8784:       .byte   4               ; DATA XREF: ROM:8714↑o
+                .byte   9
+                .byte  $F
+                .byte  $F
+                .byte  $E
+                .byte  $D
+                .byte  $C
+                .byte  $B
+                .byte  $A
+                .byte   9
+                .byte   8
+                .byte   7
+                .byte   6
+                .byte   5
+                .byte   4
+                .byte   3
+                .byte   2
+                .byte   1
+                .byte   0
+unk_8797:       .byte  $F               ; DATA XREF: ROM:8716↑o
+                .byte  $D
+                .byte  $B
+                .byte   9
+                .byte   6
+                .byte   3
+                .byte   0
+unk_879E:       .byte  $C               ; DATA XREF: ROM:8718↑o
+unk_879F:       .byte   9               ; DATA XREF: ROM:871A↑o
+unk_87A0:       .byte   6               ; DATA XREF: ROM:871C↑o
+unk_87A1:       .byte  $D               ; DATA XREF: ROM:871E↑o
+                .byte  $F
+                .byte  $F
+                .byte  $E
+                .byte  $D
+unk_87A6:       .byte  $C               ; DATA XREF: ROM:8720↑o
+                .byte  $E
+                .byte  $F
+                .byte  $F
+                .byte  $E
+                .byte  $E
+                .byte  $D
+                .byte  $D
+                .byte  $C
+                .byte  $C
+                .byte  $B
+unk_87B1:       .byte  $F               ; DATA XREF: ROM:8722↑o
+                .byte  $F
+                .byte  $F
+                .byte  $E
+                .byte  $E
+                .byte  $D
+                .byte  $C
+unk_87B8:       .byte  $F               ; DATA XREF: ROM:8724↑o
+                .byte  $E
+                .byte  $D
+                .byte  $C
+                .byte  $B
+                .byte  $A
+                .byte   9
+                .byte   8
+                .byte   7
+                .byte   6
+                .byte   5
+                .byte   4
+                .byte   3
+                .byte   2
+                .byte   1
+unk_87C7:       .byte  $F               ; DATA XREF: ROM:8726↑o
+                .byte  $F
+                .byte  $E
+                .byte  $E
+                .byte  $D
+                .byte  $D
+                .byte  $C
+                .byte  $C
+                .byte  $B
+                .byte  $B
+                .byte  $A
+                .byte  $A
+                .byte   9
+                .byte   9
+                .byte   8
+                .byte   8
+                .byte   7
+                .byte   7
+                .byte   6
+                .byte   6
+                .byte   4
+                .byte   4
+                .byte   3
+                .byte   3
+                .byte   2
+                .byte   2
+                .byte   1
+                .byte   1
+unk_87E3:       .byte  $C               ; DATA XREF: ROM:8728↑o
+                .byte  $C
+                .byte  $B
+                .byte  $B
+                .byte  $A
+                .byte  $A
+                .byte   9
+                .byte   9
+                .byte   8
+                .byte   8
+                .byte   7
+                .byte   7
+                .byte   6
+                .byte   6
+                .byte   5
+                .byte   5
+                .byte   4
+                .byte   4
+                .byte   3
+                .byte   3
+                .byte   2
+                .byte   2
+                .byte   1
+                .byte   1
+unk_87FB:       .byte  $F               ; DATA XREF: ROM:872A↑o
+                .byte  $F
+                .byte  $F
+                .byte  $E
+                .byte  $E
+                .byte  $E
+                .byte  $D
+                .byte  $D
+                .byte  $D
+                .byte  $C
+                .byte  $C
+                .byte  $C
+                .byte  $B
+                .byte  $B
+                .byte   9
+                .byte   9
+                .byte   7
+                .byte   6
+unk_880D:       .byte  $F               ; DATA XREF: ROM:872C↑o
+                .byte  $F
+                .byte  $F
+                .byte  $E
+                .byte  $E
+                .byte  $E
+                .byte  $D
+                .byte  $D
+                .byte  $C
+                .byte  $C
+                .byte  $C
+                .byte  $B
+                .byte  $B
+                .byte  $A
+                .byte   9
+                .byte   8
+unk_881D:       .byte  $F               ; DATA XREF: ROM:872E↑o
+                .byte  $F
+                .byte  $F
+                .byte  $E
+                .byte  $E
+                .byte  $D
+                .byte  $C
+                .byte  $B
+                .byte  $A
+                .byte   9
+                .byte   8
+unk_8828:       .byte  $F               ; DATA XREF: ROM:8730↑o
+                .byte  $F
+                .byte  $F
+                .byte  $E
+                .byte  $E
+                .byte  $E
+                .byte  $D
+                .byte  $D
+                .byte  $C
+                .byte  $C
+                .byte  $B
+                .byte  $A
+                .byte   9
+                .byte   7
+                .byte   6
+                .byte   5
+                .byte   4
+                .byte   3
+                .byte   2
+                .byte   1
+                .byte   0
+unk_883D:       .byte  $F               ; DATA XREF: ROM:8732↑o
+                .byte  $F
+                .byte  $F
+                .byte  $E
+                .byte  $E
+                .byte  $D
+                .byte  $C
+                .byte  $B
+                .byte  $A
+                .byte   9
+                .byte   8
+                .byte   8
+                .byte   8
+                .byte   8
+                .byte   8
+                .byte   8
+                .byte   9
+                .byte  $A
+                .byte  $B
+                .byte  $C
+                .byte  $D
+                .byte  $E
+                .byte  $F
+unk_8854:       .byte   5               ; DATA XREF: ROM:8734↑o
+                .byte  $A
+                .byte  $F
+                .byte  $F
+                .byte  $E
+                .byte  $E
+                .byte  $D
+                .byte  $D
+                .byte  $D
+                .byte  $C
+                .byte  $C
+                .byte  $C
+                .byte  $B
+                .byte  $B
+                .byte   9
+                .byte   9
+                .byte   7
+                .byte   6
+unk_8866:       .byte  $F               ; DATA XREF: ROM:8736↑o
+                .byte  $C
+                .byte   9
+                .byte   6
+                .byte   3
+                .byte   0
+unk_886C:       .byte  $F               ; DATA XREF: ROM:8738↑o
+                .byte  $D
+                .byte   9
+                .byte   6
+                .byte   3
+                .byte   9
+unk_8872:       .byte   5               ; DATA XREF: ROM:873A↑o
+                .byte  $A
+                .byte  $E
+                .byte  $F
+                .byte  $F
+                .byte  $F
+                .byte  $E
+                .byte  $E
+                .byte  $E
+                .byte  $D
+                .byte  $D
+                .byte  $D
+                .byte  $D
+                .byte  $C
+                .byte  $C
+                .byte  $C
+                .byte  $B
+                .byte  $B
+                .byte  $B
+                .byte  $A
+                .byte  $A
+                .byte  $A
+                .byte   9
+                .byte   9
+                .byte   8
+                .byte   8
+                .byte   7
+                .byte   7
+                .byte   7
+                .byte   7
+                .byte   7
+                .byte   6
+                .byte   6
+                .byte   6
+                .byte   6
+unk_8895:       .byte  $F               ; DATA XREF: ROM:873C↑o
+                .byte  $E
+                .byte  $D
+                .byte  $C
+                .byte  $B
+                .byte  $A
+                .byte   9
+                .byte   8
+                .byte   7
+                .byte   6
+                .byte   5
+                .byte   4
+                .byte   3
+                .byte   2
+                .byte   1
+unk_88A4:       .byte   4               ; DATA XREF: ROM:873E↑o
+                .byte   8
+                .byte   8
+                .byte  $C
+                .byte  $C
+                .byte  $D
+                .byte  $D
+                .byte  $D
+                .byte  $E
+                .byte  $E
+                .byte  $E
+                .byte  $E
+                .byte  $E
+                .byte  $F
+                .byte  $F
+                .byte  $F
+                .byte  $F
+                .byte  $F
+                .byte  $F
+                .byte  $F
+                .byte  $F
+                .byte  $E
+unk_88BA:       .byte   8               ; DATA XREF: ROM:8740↑o
+                .byte  $C
+                .byte  $E
+                .byte  $F
+                .byte  $E
+                .byte  $D
+                .byte  $C
+                .byte  $C
+                .byte  $A
+                .byte  $A
+                .byte   9
+                .byte   9
+                .byte   9
+unk_88C7:       .byte   7               ; DATA XREF: ROM:8742↑o
+                .byte   9
+                .byte  $B
+                .byte  $D
+                .byte  $E
+                .byte  $F
+                .byte  $F
+                .byte  $D
+                .byte  $C
+                .byte  $A
+                .byte   9
+                .byte   8
+                .byte   8
+unk_88D4:       .byte   5               ; DATA XREF: ROM:8744↑o
+                .byte   7
+                .byte   9
+                .byte  $B
+                .byte  $D
+                .byte  $F
+                .byte  $F
+                .byte  $E
+                .byte  $E
+                .byte  $D
+                .byte  $D
+                .byte  $C
+                .byte  $C
+                .byte  $B
+                .byte  $B
+                .byte   9
+                .byte   7
+                .byte   6
+unk_88E6:       .byte  $F               ; DATA XREF: ROM:8746↑o
+                .byte  $C
+                .byte   9
+                .byte   6
+unk_88EA:       .byte  $F               ; DATA XREF: ROM:8748↑o
+                .byte  $D
+                .byte  $C
+                .byte  $A
+                .byte   8
+                .byte   6
+                .byte   5
+                .byte   4
+                .byte   3
+                .byte   2
+                .byte   1
+unk_88F5:       .byte  $F               ; DATA XREF: ROM:874A↑o
+                .byte  $D
+                .byte  $C
+                .byte  $B
+                .byte  $A
+                .byte   9
+                .byte   8
+                .byte   7
+                .byte   6
+                .byte   5
+                .byte   4
+                .byte   3
+                .byte   2
+                .byte   1
+unk_8903:       .byte   7               ; DATA XREF: ROM:874C↑o
+                .byte   6
+                .byte   5
+                .byte   4
+                .byte   3
+                .byte   2
+                .byte   1
+                .byte   0
+unk_890B:       .byte   5               ; DATA XREF: ROM:874E↑o
+                .byte   9
+                .byte  $B
+                .byte  $D
+                .byte  $E
+                .byte  $F
+                .byte  $F
+                .byte  $E
+                .byte  $E
+                .byte  $D
+                .byte  $C
+unk_8916:       .byte  $F               ; DATA XREF: ROM:8750↑o
+                .byte  $F
+                .byte  $F
+                .byte  $F
+                .byte  $F
+                .byte  $F
+                .byte  $F
+                .byte  $F
+                .byte  $F
+                .byte  $F
+                .byte  $E
+                .byte  $E
+                .byte  $E
+                .byte  $E
+                .byte  $D
+                .byte  $D
+                .byte  $D
+                .byte  $C
+                .byte  $C
+                .byte  $B
+                .byte  $B
+                .byte  $A
+                .byte  $A
+                .byte   9
+                .byte   9
+                .byte   8
+                .byte   7
+                .byte   6
+                .byte   5
+                .byte   4
+                .byte   3
+                .byte   2
+                .byte   1
+                .byte   0
+unk_8938:       .byte  $F               ; DATA XREF: ROM:8752↑o
+                .byte  $E
+                .byte  $D
+                .byte  $C
+                .byte  $B
+                .byte  $A
+                .byte  $A
+                .byte   9
+                .byte   9
+                .byte   8
+                .byte   8
+                .byte   8
+                .byte   7
+                .byte   7
+                .byte   7
+                .byte   6
+                .byte   6
+                .byte   6
+                .byte   6
+                .byte   5
+                .byte   5
+                .byte   5
+                .byte   5
+                .byte   4
+unk_8950:       .byte  $F               ; DATA XREF: ROM:8754↑o
+                .byte  $A
+                .byte   5
+                .byte   0
+unk_8954:       .byte  $F               ; DATA XREF: ROM:8756↑o
+                .byte  $E
+                .byte  $D
+                .byte  $C
+                .byte  $B
+                .byte  $A
+                .byte   9
+                .byte   8
+                .byte   7
+                .byte   6
+                .byte   5
+                .byte   4
+                .byte   3
+                .byte   2
+                .byte   1
+                .byte   0
+unk_8964:       .byte  $B               ; DATA XREF: ROM:8758↑o
+                .byte  $F
+                .byte  $F
+                .byte  $F
+                .byte  $F
+                .byte  $E
+                .byte  $E
+                .byte  $E
+                .byte  $E
+                .byte  $E
+                .byte  $D
+                .byte  $D
+                .byte  $D
+                .byte  $D
+                .byte  $D
+                .byte  $C
+unk_8974:       .byte  $F               ; DATA XREF: ROM:875A↑o
+                .byte  $E
+                .byte  $D
+                .byte  $C
+                .byte  $B
+                .byte  $A
+                .byte  $A
+                .byte  $A
+                .byte   9
+                .byte   9
+                .byte   9
+                .byte   8
+                .byte   8
+                .byte   8
+                .byte   7
+envEndPointTbl: .byte   1
+                .byte $11
+                .byte $12
+                .byte   2
+                .byte   2
+                .byte $13
+                .byte   7
+                .byte   1
+                .byte   1
+                .byte   1
+                .byte   5
+                .byte  $B
+                .byte   7
+                .byte  $F
+                .byte $1C
+                .byte $18
+                .byte $12
+                .byte $10
+                .byte  $B
+                .byte $15
+                .byte $17
+                .byte $12
+                .byte   6
+                .byte   6
+                .byte $23 ; #
+                .byte  $F
+                .byte $16
+                .byte  $D
+                .byte  $D
+                .byte $12
+                .byte   5
+                .byte  $A
+                .byte  $D
+                .byte   7
+                .byte  $A
+                .byte $21 ; !
+                .byte $17
+                .byte   4
+                .byte $10
+                .byte $10
+                .byte  $E
+envLoopPointTbl:.byte   0
+                .byte $10
+                .byte $10
+                .byte   0
+                .byte   0
+                .byte $12
+                .byte   6
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   4
+                .byte  $A
+                .byte   0
+                .byte   0
+                .byte $1B
+                .byte $17
+                .byte $11
+                .byte  $F
+                .byte  $A
+                .byte $14
+                .byte $16
+                .byte $11
+                .byte   5
+                .byte   4
+                .byte $22 ; "
+                .byte  $E
+                .byte $15
+                .byte  $C
+                .byte  $C
+                .byte $11
+                .byte   4
+                .byte   9
+                .byte  $C
+                .byte   6
+                .byte   9
+                .byte $20
+                .byte $16
+                .byte   3
+                .byte  $F
+                .byte  $F
+                .byte  $D
+sweepDataTbl:   .word unk_8A03
+                .word unk_8A04
+                .word unk_8A20
+                .word unk_8A28
+                .word unk_8A38
+                .word unk_8A3A
+                .word unk_8A3C
+                .word unk_8A44
+                .word unk_8A4C
+                .word unk_8A54
+                .word unk_8A56
+                .word unk_8A6C
+                .word unk_8A76
+                .word unk_8A80
+                .word unk_8A8A
+                .word unk_8A8C
+                .word unk_8AAB
+                .word unk_8ACA
+                .word unk_8ACB
+                .word unk_8ACC
+                .word unk_8ACD
+                .word unk_8ACE
+                .word unk_8ACF
+unk_8A03:       .byte   0               ; DATA XREF: ROM:sweepDataTbl↑o
+unk_8A04:       .byte   0               ; DATA XREF: ROM:89D7↑o
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   1
+                .byte   1
+                .byte   0
+                .byte   0
+                .byte $FF
+                .byte $FF
+                .byte   0
+                .byte   0
+                .byte   1
+                .byte   1
+                .byte   2
+                .byte   2
+                .byte   1
+                .byte   1
+                .byte   0
+                .byte   0
+                .byte $FF
+                .byte $FF
+                .byte $FE
+                .byte $FE
+                .byte $FF
+                .byte $FF
+unk_8A20:       .byte   0               ; DATA XREF: ROM:89D9↑o
+                .byte   1
+                .byte   2
+                .byte   1
+                .byte   0
+                .byte $FF
+                .byte $FE
+                .byte $FF
+unk_8A28:       .byte   0               ; DATA XREF: ROM:89DB↑o
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   1
+                .byte   1
+                .byte   1
+                .byte   1
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte $FF
+                .byte $FF
+                .byte $FF
+                .byte $FF
+unk_8A38:       .byte   1               ; DATA XREF: ROM:89DD↑o
+                .byte $FF
+unk_8A3A:       .byte   0               ; DATA XREF: ROM:89DF↑o
+                .byte $FF
+unk_8A3C:       .byte   0               ; DATA XREF: ROM:89E1↑o
+                .byte   1
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte $FF
+                .byte   0
+                .byte   0
+unk_8A44:       .byte   0               ; DATA XREF: ROM:89E3↑o
+                .byte   0
+                .byte   0
+                .byte   1
+                .byte   1
+                .byte   1
+                .byte   0
+                .byte   0
+unk_8A4C:       .byte   1               ; DATA XREF: ROM:89E5↑o
+                .byte   1
+                .byte   1
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   1
+                .byte   1
+unk_8A54:       .byte $FF               ; DATA XREF: ROM:89E7↑o
+                .byte   1
+unk_8A56:       .byte   0               ; DATA XREF: ROM:89E9↑o
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   1
+                .byte   1
+                .byte   1
+                .byte   1
+                .byte   1
+unk_8A6C:       .byte   0               ; DATA XREF: ROM:89EB↑o
+                .byte   0
+                .byte   0
+                .byte   1
+                .byte   1
+                .byte   1
+                .byte   1
+                .byte   1
+                .byte   0
+                .byte   0
+unk_8A76:       .byte   1               ; DATA XREF: ROM:89ED↑o
+                .byte   1
+                .byte   1
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   1
+                .byte   1
+unk_8A80:       .byte $FD               ; DATA XREF: ROM:89EF↑o
+                .byte $FE
+                .byte $FF
+                .byte   1
+                .byte   2
+                .byte   3
+                .byte   2
+                .byte   1
+                .byte $FF
+                .byte $FE
+unk_8A8A:       .byte $FD               ; DATA XREF: ROM:89F1↑o
+                .byte   3
+unk_8A8C:       .byte   0               ; DATA XREF: ROM:89F3↑o
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   1
+                .byte   1
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   1
+                .byte   1
+                .byte   1
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   1
+                .byte   1
+                .byte   1
+                .byte   1
+                .byte   1
+unk_8AAB:       .byte   0               ; DATA XREF: ROM:89F5↑o
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   1
+                .byte   0
+                .byte   0
+                .byte   1
+                .byte   1
+                .byte   1
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   1
+                .byte   1
+                .byte   1
+                .byte   1
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+                .byte   0
+unk_8ACA:       .byte   1               ; DATA XREF: ROM:89F7↑o
+unk_8ACB:       .byte   2               ; DATA XREF: ROM:89F9↑o
+unk_8ACC:       .byte   3               ; DATA XREF: ROM:89FB↑o
+unk_8ACD:       .byte $FF               ; DATA XREF: ROM:89FD↑o
+unk_8ACE:       .byte $FE               ; DATA XREF: ROM:89FF↑o
+unk_8ACF:       .byte $FD               ; DATA XREF: ROM:8A01↑o
+sweepEndPointTbl:.byte 1
+                .byte 28
+                .byte 8
+                .byte 16
+                .byte 2
+                .byte 2
+                .byte 8
+                .byte 8
+                .byte 8
+                .byte 2
+                .byte 22
+                .byte 10
+                .byte 10
+                .byte 10
+                .byte 2
+                .byte 30
+                .byte 30
+                .byte 1
+                .byte 1
+                .byte 1
+                .byte 1
+                .byte 1
+                .byte 1
+sweepLoopPointTbl:.byte 0
+                .byte 12
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 11
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 21
+                .byte 21
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 51
+bankTbl:        .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 2
+                .byte 2
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 0
+                .byte 2
+                .byte 3
+                .byte 3
+                .byte 3
+                .byte 3
+                .byte 3
+                .byte 3
+                .byte 3
+                .byte 3
+                .byte 0
+                .byte 0
+                .byte 3
+                .byte 2
+                .byte 2
+                .byte 1
+                .byte 1
+                .byte 1
+                .byte 0
+                .byte 0
+                .byte 0
+SoundDataTbl:   
+		.word 0
+                .word 0
+                .word 0
+                .word 0
+
+                .word $A000
+                .word $A013
+                .word 0
+                .word 0
+
+                .word 0
+                .word $A026
+                .word 0
+                .word 0
+
+                .word 0
+                .word $A031
+                .word 0
+                .word 0
+
+                .word 0
+                .word $A05D
+                .word $A04E
+                .word 0
+
+                .word 0
+                .word 0
+                .word $A06C
+                .word 0
+
+                .word 0
+                .word 0
+                .word $A0B5
+                .word 0
+
+                .word 0
+                .word 0
+                .word 0
+                .word $A0D6
+
+                .word 0
+                .word 0
+                .word $A1C5
+                .word 0
+
+                .word $A226
+                .word $A259
+                .word 0
+                .word $A28C
+
+                .word $A678
+                .word $A853
+                .word $AA42
+                .word 0
+
+                .word $AC7D
+                .word $ACA8
+                .word $ACCF
+                .word 0
+
+                .word $AD00
+                .word $AD49
+                .word $AD90
+                .word 0
+
+                .word $ADED
+                .word $AE12
+                .word $AE37
+                .word 0
+
+                .word $AE5A
+                .word $AE9D
+                .word $AEDE
+                .word 0
+
+                .word 0
+                .word $A2B9
+                .word 0
+                .word $A2DE
+
+                .word 0
+                .word $A2EF
+                .word 0
+                .word $A2F8
+
+                .word 0
+                .word $A30B
+                .word 0
+                .word $A320
+
+                .word $AF1B
+                .word $AF40
+                .word $AF63
+                .word 0
+
+                .word 0
+                .word $A333
+                .word 0
+                .word $A346
+
+                .word 0
+                .word $A359
+                .word 0
+                .word 0
+
+                .word 0
+                .word 0
+                .word $A388
+                .word 0
+
+                .word $AF86
+                .word $B09F
+                .word $B11E
+                .word 0
+
+                .word $B4B8
+                .word $B54B
+                .word $B5D4
+                .word 0
+
+                .word $B18D
+                .word $B26A
+                .word $B347
+                .word 0
+
+                .word $A4D2
+                .word $A537
+                .word 0
+                .word 0
+
+                .word 0
+                .word $A59E
+                .word 0
+                .word $A5C5
+
+                .word $B6C7
+                .word $B73A
+                .word $B7FD
+                .word 0
+
+                .word $B86C
+                .word $B912
+                .word $B9F0
+                .word 0
+
+                .word $B8C5
+                .word $B965
+                .word $BA3D
+                .word 0
+
+                .word 0
+                .word 0
+                .word $A5EC
+                .word 0
+
+                .word 0
+                .word $A5FF
+                .word 0
+                .word 0
+
+                .word $A60E
+                .word $A623
+                .word $A637
+                .word $A637
+
+                .word $AD24
+                .word $AE47
+                .word $AF80
+                .word $B12F
+
+                .word $B30C
+                .word $B473
+                .word $B5F6
+                .word 0
+
+                .word $BA8E
+                .word $BABF
+                .word $BAEE
+                .word 0
+
+                .word $BB1F
+                .word $BBB8
+                .word $BC2B
+                .word 0
+
+                .word $BCCC
+                .word $BD1F
+                .word $BD74
+                .word 0
+
+                .word $BDCF
+                .word $BE18
+                .word $BE5B
+                .word 0
+
+                .word $BE9E
+                .word $BEF5
+                .word $BF4C
+                .word 0
+
+                .word $B7A8
+                .word $B823
+                .word $B880
+                .word 0
+
+                .word $A000
+                .word $A2A1
+                .word $A5A8
+                .word $A933
+
+                .word $AB44
+                .word $AB83
+                .word $ABC0
+                .word 0
+
+                .word $AC01
+                .word $AC20
+                .word $AC3D
+                .word 0
+
+                .word $AC62
+                .word $ACBF
+                .word $AD16
+                .word 0
+
+                .word $AD73
+                .word $AD84
+                .word $AD97
+                .word 0
+
+                .word $ADA4
+                .word $ADEF
+                .word $AE3A
+                .word 0
+
+                .word $AE85
+                .word $AEF6
+                .word $AF65
+                .word 0
+
+                .word $AFAA
+                .word $AFFB
+                .word $B056
+                .word 0
+
+                .word 0
+                .word 0
+                .word 0
+                .word $A63C
+
+                .word 0
+                .word 0
+                .word 0
+                .word $A64D
+
+                .word $B0D9
+                .word $B1B0
+                .word $B1D1
+                .word 0
+
+                .word $A000
+                .word $A28F
+                .word $A5F2
+                .word $A7BF
+
+                .word $AA24
+                .word $AAC3
+                .word $AB62
+                .word $ABCB
+
+                .word $A175
+                .word $A22C
+                .word $A2E3
+                .word $A3D6
+
+                .word $A4A9
+                .word $ADA6
+                .word $B4EB
+                .word $BC02
+
+                .word $A000
+                .word $A087
+                .word $A10E
+                .word 0

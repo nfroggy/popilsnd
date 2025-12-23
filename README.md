@@ -7,5 +7,5 @@ A prototype of *Magical Puzzle Popils* was recently dumped by the Video Game His
 The code in this repo corresponds to the area starting at $1812A in the .nes file dumped by the VGHF. This starts at $811A in NES memory when bank C is mapped in the $8000-9FFF area.
 
 ## Build instructions
-1. Clone the repo with `git clone --recurse-submodules`.
-1. Run "build.sh". It will compile the assembler if necessary, assemble the sound engine, and verify that the checksum matches.
+1. Make sure ca65 and ld65 are in your PATH.
+1. Run "build.sh". It will assemble the sound engine, and verify that the checksum matches.
