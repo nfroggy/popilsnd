@@ -36,10 +36,12 @@ chanSweep:		.res	8
 
 		.segment "SOUND_ENGINE"
 
+CodeStart:
+
 ; =============== S U B R O U T I N E =======================================
 
 
-InitSound:                              ; CODE XREF: RunSoundEngine+42↓p
+InitSound:                   
                 STA     $FC
                 TAX
                 LDA     bankTbl,X
@@ -2521,3 +2523,9 @@ SoundDataTbl:
                 .word $A087
                 .word $A10E
                 .word 0
+
+CodeEnd:
+
+.if CodeEnd - CodeStart > $be9
+.error "code too big to fit in rom!"
+.endif

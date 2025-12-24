@@ -1,3 +1,6 @@
 out/
+split/
+*.nes
 *.swp
+a.out
 
