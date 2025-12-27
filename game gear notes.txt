@@ -1,0 +1,19 @@
+ix (channel struct) offsets
+0: chanPtrLo
+1: chanPtrHi
+2: chanEnvType
+3: chanEnvOffset
+5: chanTranspose
+6: chanSweepType
+7: chanNotePlaying
+8: chanTimer
+9: chanEnvCursor
+a: chanSweepCursor
+b: chanNoteDur
+c: chanFreqOffset
+d: chanSweep
+
+iy (sound struct) offsets
+4h: stereo
+43h: sndTempo
+44h: sndChanMask?

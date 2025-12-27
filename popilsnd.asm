@@ -2178,6 +2178,8 @@ sweepLoopPointTbl:.byte 0
                 .byte 0
                 .byte 0
                 .byte 51
+		
+		
 bankTbl:        .byte 0
                 .byte 0
                 .byte 0
@@ -2239,167 +2241,174 @@ bankTbl:        .byte 0
                 .byte 0
                 .byte 0
 SoundDataTbl:   
-		.word 0
+		.word 0		; 0
                 .word 0
                 .word 0
                 .word 0
 
-                .word $A000
-                .word $A013
-                .word 0
-                .word 0
+.import attractch0, attractch1, attractch2
 
+                .word attractch0	; 1
+                .word attractch1
+                .word attractch2
                 .word 0
+		
+                ; .word $A000	; 1
+                ; .word $A013
+                ; .word 0
+                ; .word 0
+
+                .word 0		; 2
                 .word $A026
                 .word 0
                 .word 0
 
-                .word 0
+                .word 0		; 3
                 .word $A031
                 .word 0
                 .word 0
 
-                .word 0
+                .word 0		; 4
                 .word $A05D
                 .word $A04E
                 .word 0
 
-                .word 0
+                .word 0		; 5
                 .word 0
                 .word $A06C
                 .word 0
 
-                .word 0
+                .word 0		; 6
                 .word 0
                 .word $A0B5
                 .word 0
 
-                .word 0
+                .word 0		; 7
                 .word 0
                 .word 0
                 .word $A0D6
 
-                .word 0
+                .word 0		; 8
                 .word 0
                 .word $A1C5
                 .word 0
 
-                .word $A226
+                .word $A226	; 9
                 .word $A259
                 .word 0
                 .word $A28C
 
-                .word $A678
+                .word $A678	; 10
                 .word $A853
                 .word $AA42
                 .word 0
 
-                .word $AC7D
+                .word $AC7D	; 11
                 .word $ACA8
                 .word $ACCF
                 .word 0
 
-                .word $AD00
+                .word $AD00	; 12
                 .word $AD49
                 .word $AD90
                 .word 0
 
-                .word $ADED
+                .word $ADED	; 13
                 .word $AE12
                 .word $AE37
                 .word 0
 
-                .word $AE5A
+                .word $AE5A	; 14
                 .word $AE9D
                 .word $AEDE
                 .word 0
 
-                .word 0
+                .word 0		; 15
                 .word $A2B9
                 .word 0
                 .word $A2DE
 
-                .word 0
+                .word 0		; 16
                 .word $A2EF
                 .word 0
                 .word $A2F8
 
-                .word 0
+                .word 0		; 17
                 .word $A30B
                 .word 0
                 .word $A320
 
-                .word $AF1B
+                .word $AF1B	; 18
                 .word $AF40
                 .word $AF63
                 .word 0
 
-                .word 0
+                .word 0		; 19
                 .word $A333
                 .word 0
                 .word $A346
 
-                .word 0
+                .word 0		; 20
                 .word $A359
                 .word 0
                 .word 0
 
-                .word 0
+                .word 0		; 21
                 .word 0
                 .word $A388
                 .word 0
 
-                .word $AF86
+                .word $AF86	; 22
                 .word $B09F
                 .word $B11E
                 .word 0
 
-                .word $B4B8
+                .word $B4B8	; 23
                 .word $B54B
                 .word $B5D4
                 .word 0
 
-                .word $B18D
+                .word $B18D	; 24
                 .word $B26A
                 .word $B347
                 .word 0
 
-                .word $A4D2
+                .word $A4D2	; 25
                 .word $A537
                 .word 0
                 .word 0
 
-                .word 0
+                .word 0		; 23
                 .word $A59E
                 .word 0
                 .word $A5C5
 
-                .word $B6C7
+                .word $B6C7	; 27
                 .word $B73A
                 .word $B7FD
                 .word 0
 
-                .word $B86C
+                .word $B86C	; 28
                 .word $B912
                 .word $B9F0
                 .word 0
 
-                .word $B8C5
+                .word $B8C5	; 29
                 .word $B965
                 .word $BA3D
                 .word 0
 
-                .word 0
+                .word 0		; 30
                 .word 0
                 .word $A5EC
                 .word 0
 
-                .word 0
+                .word 0		; 31
                 .word $A5FF
                 .word 0
                 .word 0
 
-                .word $A60E
+                .word $A60E	; 32
                 .word $A623
                 .word $A637
                 .word $A637

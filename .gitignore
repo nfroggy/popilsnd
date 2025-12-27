@@ -1,6 +1,7 @@
 out/
 split/
 *.nes
+*.gg
 *.swp
 a.out
 
