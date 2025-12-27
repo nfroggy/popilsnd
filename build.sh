@@ -41,6 +41,13 @@ then
 	exit -1
 fi
 
+ca65 bank2.asm -g -l out/bank2.lst -o out/bank2.o
+if [ $? -ne 0 ]
+then
+	echo "building popils sound data failed"
+	exit -1
+fi
+
 ca65 popilsnd.asm -g -l out/popilsnd.lst -o out/popilsnd.o
 if [ $? -ne 0 ]
 then
@@ -55,7 +62,7 @@ then
 	exit -1
 fi
 
-ld65 -C linker.cfg --dbgfile out/popilsnd.dbg out/popilsnd.o out/bank0.o out/bankc.o
+ld65 -C linker.cfg --dbgfile out/popilsnd.dbg out/popilsnd.o out/bank0.o out/bank2.o out/bankc.o
 if [ $? -ne 0 ]
 then
 	echo "linking popils sound engine failed"
@@ -64,7 +71,7 @@ fi
 
 echo "successfully built popils sound engine"
 
-cat split/header.bin out/bank0.bin split/bank1.bin split/bank2.bin split/bank3.bin split/bank4.bin split/bank5.bin split/bank6.bin split/bank7.bin split/bank8.bin split/bank9.bin split/banka.bin split/bankb.bin out/bankc.bin split/bankd.bin split/banke.bin split/bankf.bin split/chr.bin > out/popils_built.nes
+cat split/header.bin out/bank0.bin split/bank1.bin out/bank2.bin split/bank3.bin split/bank4.bin split/bank5.bin split/bank6.bin split/bank7.bin split/bank8.bin split/bank9.bin split/banka.bin split/bankb.bin out/bankc.bin split/bankd.bin split/banke.bin split/bankf.bin split/chr.bin > out/popils_built.nes
 
 good_checksum="19cac66da15360bca2790288071fd5c3292738026802e0c1f6d23830a00ca6e4"
 checksum="$(sha256sum out/bankc.bin | awk '{ print $1 }')"

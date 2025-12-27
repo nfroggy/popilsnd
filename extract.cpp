@@ -37,11 +37,11 @@ static constexpr uint8_t CMD_GOTO = 0x86;
 static constexpr uint8_t CMD_END = 0x87;
 
 const CommandInfo commandSet[] = {
-	{0x80, "CMD_SET_ENV_OFFSET", 1, true},
-	{0x81, "CMD_SET_ENV_TYPE", 1, true},
+	{0x80, "CMD_SET_ENV_OFFSET", 1, false},
+	{0x81, "CMD_SET_ENV_TYPE", 1, false},
 	{0x82, "CMD_SET_TEMPO", 1, false},
 	{0x83, "CMD_IDK1", 1, true},
-	{0x84, "CMD_SET_SWEEP_TYPE", 1, true},
+	{0x84, "CMD_SET_SWEEP_TYPE", 1, false},
 	{0x85, "CMD_SET_FREQ_OFFSET", 1, true},
 	{0x86, "CMD_GOTO", 2, false},
 	{0x87, "CMD_END", 0, false},
@@ -127,7 +127,7 @@ static void writeChannelData(FILE *fp, std::map<uint16_t, Command> *cmdMap, std:
 	}
 }
 
-static void getSoundData(int id, std::string name) {
+static void getSoundData(int id, std::string name, int8_t transpose) {
 	Sound sound;
 	sound.id = id;
 	uint16_t soundAddr = SOUND_TBL_ADDR + (id * NUM_CHANNELS * sizeof(uint16_t));
@@ -138,12 +138,15 @@ static void getSoundData(int id, std::string name) {
 		}
 	}
 
-	FILE *out = fopen("out.asm", "w");
-	fprintf(out, ".include\t\"cmds.inc\"\n\n");
+	std::string filename = std::format("{}.asm", name);
+	FILE *out = fopen(filename.c_str(), "w");
 	for (int i = 0; i < NUM_CHANNELS; i++) {
-		std::string prefix = std::format("{}ch{}", name, i);
+		std::string prefix = std::format("{}Ch{}", name, i);
 		if (!sound.channels[i].empty()) {
 			fprintf(out, ".export\t%s\n%s:\n", prefix.c_str(), prefix.c_str());
+			if (transpose) {
+				fprintf(out, "\t.byte CMD_TRANSPOSE, $%02x\n", transpose);
+			}
 			writeChannelData(out, &sound.channels[i], prefix);
 		}
 	}
@@ -155,7 +158,10 @@ int main(int argc, char **argv) {
 	fread(romData.data(), 1, ROM_SIZE, fp);
 	fclose(fp);
 
-	getSoundData(17, "attract");
+	getSoundData(1, "tengenLogo", 12);
+	getSoundData(17, "attract", 7);
+	getSoundData(19, "title", 12);
+	getSoundData(22, "menu", 12);
 
 	return 0;
 }

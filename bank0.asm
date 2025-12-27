@@ -1,4 +1,5 @@
 .segment "BANK0"
+.include "sounds/cmds.inc"
 
-; Attract mode
-.include "sounds/attract.asm"
+.include "sounds/tengenLogo.asm"
+.include "sounds/menu.asm"

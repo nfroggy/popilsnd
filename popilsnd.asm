@@ -2180,83 +2180,77 @@ sweepLoopPointTbl:.byte 0
                 .byte 51
 		
 		
-bankTbl:        .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 2
-                .byte 2
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 0
-                .byte 2
-                .byte 3
-                .byte 3
-                .byte 3
-                .byte 3
-                .byte 3
-                .byte 3
-                .byte 3
-                .byte 3
-                .byte 0
-                .byte 0
-                .byte 3
-                .byte 2
-                .byte 2
-                .byte 1
-                .byte 1
-                .byte 1
-                .byte 0
-                .byte 0
-                .byte 0
+bankTbl:        .byte 0	; 0
+                .byte 0	; 1
+                .byte 0	; 2
+                .byte 0	; 3
+                .byte 0	; 4
+                .byte 0	; 5
+                .byte 0	; 6
+                .byte 0	; 7
+                .byte 0	; 8
+                .byte 0	; 9
+                .byte 0	; 10
+                .byte 0	; 11
+                .byte 0	; 12
+                .byte 0	; 13
+                .byte 0	; 14
+                .byte 0	; 15
+                .byte 0	; 16
+                .byte 0	; 17
+                .byte 0	; 18
+                .byte 0	; 19
+                .byte 0	; 20
+                .byte 0	; 21
+                .byte 0	; 22
+                .byte 0	; 23
+                .byte 0	; 24
+                .byte 0	; 25
+                .byte 0	; 26
+                .byte 0	; 27
+                .byte 0	; 28
+                .byte 0	; 29
+                .byte 0	; 30
+                .byte 0	; 31
+                .byte 0	; 32
+                .byte 2	; 33
+                .byte 2	; 34
+                .byte 0	; 35
+                .byte 0	; 36
+                .byte 0	; 37
+                .byte 0	; 38
+                .byte 0	; 39
+                .byte 2	; 40
+                .byte 3	; 41
+                .byte 3	; 42
+                .byte 3	; 43
+                .byte 3	; 44
+                .byte 3	; 45
+                .byte 3	; 46
+                .byte 3	; 47
+                .byte 3	; 48
+                .byte 0	; 49
+                .byte 0	; 50
+                .byte 3	; 51
+                .byte 2	; 52
+                .byte 2	; 53
+                .byte 1	; 54
+                .byte 1	; 55
+                .byte 1	; 56
+                .byte 0	; 57
+                .byte 0	; 58
+                .byte 0	; 59
 SoundDataTbl:   
 		.word 0		; 0
                 .word 0
                 .word 0
                 .word 0
-
-.import attractch0, attractch1, attractch2
-
-                .word attractch0	; 1
-                .word attractch1
-                .word attractch2
-                .word 0
 		
-                ; .word $A000	; 1
-                ; .word $A013
-                ; .word 0
-                ; .word 0
+		.import tengenLogoCh0, tengenLogoCh1
+                .word tengenLogoCh0	; 1
+                .word tengenLogoCh1
+                .word 0
+                .word 0
 
                 .word 0		; 2
                 .word $A026
@@ -2358,9 +2352,10 @@ SoundDataTbl:
                 .word $A388
                 .word 0
 
-                .word $AF86	; 22
-                .word $B09F
-                .word $B11E
+		.import menuCh0, menuCh1, menuCh2
+                .word menuCh0	; 22
+                .word menuCh1
+                .word menuCh2
                 .word 0
 
                 .word $B4B8	; 23
@@ -2413,14 +2408,16 @@ SoundDataTbl:
                 .word $A637
                 .word $A637
 
-                .word $AD24
-                .word $AE47
-                .word $AF80
-                .word $B12F
+		.import attractCh0, attractCh1, attractCh2
+                .word attractCh0	; 33
+                .word attractCh1
+                .word attractCh2
+                .word 0
 
-                .word $B30C
-                .word $B473
-                .word $B5F6
+		.import titleCh0, titleCh1, titleCh2
+                .word titleCh0	; 34
+                .word titleCh1
+                .word titleCh2
                 .word 0
 
                 .word $BA8E

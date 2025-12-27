@@ -1,10 +1,8 @@
-.include	"cmds.inc"
-
-.export	attractch0
-attractch0:
-	.byte CMD_SET_TEMPO, $00
+.export	attractCh0
+attractCh0:
 	.byte CMD_TRANSPOSE, $07
-attractch0Loop:
+	.byte CMD_SET_TEMPO, $00
+attractCh0Loop:
 	.byte $2b, $12
 	.byte $2a, $12
 	.byte $29, $12
@@ -145,11 +143,11 @@ attractch0Loop:
 	.byte $27, $12
 	.byte CMD_REST, $36
 	.byte CMD_GOTO
-	.word attractch0Loop
-.export	attractch1
-attractch1:
+	.word attractCh0Loop
+.export	attractCh1
+attractCh1:
 	.byte CMD_TRANSPOSE, $07
-attractch1Loop:
+attractCh1Loop:
 	.byte $30, $12
 	.byte $2f, $12
 	.byte $2e, $12
@@ -302,11 +300,11 @@ attractch1Loop:
 	.byte $2b, $12
 	.byte CMD_REST, $36
 	.byte CMD_GOTO
-	.word attractch1Loop
-.export	attractch2
-attractch2:
+	.word attractCh1Loop
+.export	attractCh2
+attractCh2:
 	.byte CMD_TRANSPOSE, $07
-attractch2Loop:
+attractCh2Loop:
 	.byte $1b, $12
 	.byte $16, $12
 	.byte $21, $02
@@ -474,4 +472,4 @@ attractch2Loop:
 	.byte $1b, $12
 	.byte CMD_REST, $12
 	.byte CMD_GOTO
-	.word attractch2Loop
+	.word attractCh2Loop
