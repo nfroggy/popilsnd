@@ -2,6 +2,9 @@
 attractCh0:
 	.byte CMD_TRANSPOSE, $07
 	.byte CMD_SET_TEMPO, $00
+	.byte CMD_SET_ENV_TYPE, $11
+	.byte CMD_SET_SWEEP_TYPE, $07
+	.byte CMD_SET_ENV_OFFSET, $00
 attractCh0Loop:
 	.byte $2b, $12
 	.byte $2a, $12
@@ -147,6 +150,9 @@ attractCh0Loop:
 .export	attractCh1
 attractCh1:
 	.byte CMD_TRANSPOSE, $07
+	.byte CMD_SET_ENV_TYPE, $11
+	.byte CMD_SET_SWEEP_TYPE, $00
+	.byte CMD_SET_ENV_OFFSET, $00
 attractCh1Loop:
 	.byte $30, $12
 	.byte $2f, $12
@@ -304,6 +310,9 @@ attractCh1Loop:
 .export	attractCh2
 attractCh2:
 	.byte CMD_TRANSPOSE, $07
+	.byte CMD_SET_ENV_TYPE, $11
+	.byte CMD_SET_SWEEP_TYPE, $00
+	.byte CMD_SET_ENV_OFFSET, $00
 attractCh2Loop:
 	.byte $1b, $12
 	.byte $16, $12

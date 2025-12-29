@@ -3,6 +3,9 @@ menuCh0:
 	.byte CMD_TRANSPOSE, $0c
 menuCh0Loop:
 	.byte CMD_SET_TEMPO, $00
+	.byte CMD_SET_ENV_TYPE, $19
+	.byte CMD_SET_SWEEP_TYPE, $07
+	.byte CMD_SET_ENV_OFFSET, $00
 	.byte $2b, $03
 	.byte CMD_REST, $09
 	.byte $2a, $03
@@ -144,6 +147,9 @@ menuCh0Loop:
 menuCh1:
 	.byte CMD_TRANSPOSE, $0c
 menuCh1Loop:
+	.byte CMD_SET_ENV_TYPE, $19
+	.byte CMD_SET_SWEEP_TYPE, $07
+	.byte CMD_SET_ENV_OFFSET, $00
 	.byte $22, $03
 	.byte CMD_REST, $09
 	.byte $21, $03
@@ -207,6 +213,9 @@ menuCh1Loop:
 menuCh2:
 	.byte CMD_TRANSPOSE, $0c
 menuCh2Loop:
+	.byte CMD_SET_ENV_TYPE, $0a
+	.byte CMD_SET_SWEEP_TYPE, $07
+	.byte CMD_SET_ENV_OFFSET, $03
 	.byte $16, $10
 	.byte CMD_REST, $02
 	.byte $1b, $10

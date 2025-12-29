@@ -2,6 +2,9 @@
 titleCh0:
 	.byte CMD_TRANSPOSE, $0c
 	.byte CMD_SET_TEMPO, $00
+	.byte CMD_SET_ENV_TYPE, $08
+	.byte CMD_SET_SWEEP_TYPE, $07
+	.byte CMD_SET_ENV_OFFSET, $00
 	.byte $2b, $05
 	.byte CMD_REST, $0a
 	.byte $29, $05
@@ -176,6 +179,9 @@ titleCh0:
 .export	titleCh1
 titleCh1:
 	.byte CMD_TRANSPOSE, $0c
+	.byte CMD_SET_ENV_TYPE, $08
+	.byte CMD_SET_SWEEP_TYPE, $08
+	.byte CMD_SET_ENV_OFFSET, $00
 	.byte $24, $05
 	.byte CMD_REST, $0a
 	.byte $26, $05
@@ -363,6 +369,9 @@ titleCh1:
 .export	titleCh2
 titleCh2:
 	.byte CMD_TRANSPOSE, $0c
+	.byte CMD_SET_ENV_TYPE, $08
+	.byte CMD_SET_SWEEP_TYPE, $07
+	.byte CMD_SET_ENV_OFFSET, $02
 	.byte $14, $0a
 	.byte CMD_REST, $05
 	.byte $20, $0a

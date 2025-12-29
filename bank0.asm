@@ -3,3 +3,4 @@
 
 .include "sounds/tengenLogo.asm"
 .include "sounds/menu.asm"
+.include "sounds/level.asm"
