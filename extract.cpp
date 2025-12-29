@@ -35,6 +35,7 @@ typedef struct {
 
 static constexpr uint8_t CMD_GOTO = 0x86;
 static constexpr uint8_t CMD_END = 0x87;
+static constexpr uint8_t CMD_INIT = 0x8a;
 
 const CommandInfo commandSet[] = {
 	{0x80, "CMD_SET_ENV_OFFSET", 1, false},
@@ -47,7 +48,7 @@ const CommandInfo commandSet[] = {
 	{0x87, "CMD_END", 0, false},
 	{0x88, "CMD_SET_TRANSPOSE", 1, false},
 	{0x89, "CMD_REST", 1, false},
-	{0x8a, "CMD_INIT", 4, true}
+	{0x8a, "CMD_INIT", 4, false}
 };
 
 struct Command;
@@ -111,6 +112,11 @@ static void writeChannelData(FILE *fp, std::map<uint16_t, Command> *cmdMap, std:
 				if (command.cmd->value == CMD_GOTO) {
 					fprintf(fp, "\t.byte %s\n\t.word %s\n", command.cmd->name.c_str(), std::string(prefix + "Loop").c_str());
 				}
+				else if (command.cmd->value == CMD_INIT) {
+					fprintf(fp, "\t.byte CMD_SET_ENV_TYPE, $%02x\n", command.data.params[1]);
+					fprintf(fp, "\t.byte CMD_SET_SWEEP_TYPE, $%02x\n", command.data.params[2]);
+					fprintf(fp, "\t.byte CMD_SET_ENV_OFFSET, $%02x\n", command.data.params[3]);
+				}
 				else {
 					fprintf(fp, "\t.byte %s", command.cmd->name.c_str());
 					int numParams = command.cmd->paramSize;
@@ -162,6 +168,7 @@ int main(int argc, char **argv) {
 	getSoundData(17, "attract", 7);
 	getSoundData(19, "title", 12);
 	getSoundData(22, "menu", 12);
+	getSoundData(23, "level", 12);
 
 	return 0;
 }
