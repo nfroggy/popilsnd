@@ -4,3 +4,24 @@
 .include "sounds/tengenLogo.asm"
 .include "sounds/menu.asm"
 .include "sounds/level.asm"
+.include "sounds/pause.asm"
+
+.export noiseTest
+noiseTest:
+	.byte $00, $20
+	.byte $01, $20
+	.byte $02, $20
+	.byte $03, $20
+	.byte $04, $20
+	.byte $05, $20
+	.byte $06, $20
+	.byte $07, $20
+	.byte $08, $20
+	.byte $09, $20
+	.byte $0a, $20
+	.byte $0b, $20
+	.byte $0c, $20
+	.byte $0d, $20
+	.byte $0e, $20
+	.byte $0f, $20
+	.byte CMD_END

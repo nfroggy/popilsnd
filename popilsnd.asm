@@ -2252,10 +2252,11 @@ SoundDataTbl:
                 .word 0
                 .word 0
 
+		.import noiseTest
                 .word 0		; 2
                 .word 0
                 .word 0
-                .word 0
+                .word noiseTest
 
                 .word 0		; 3
                 .word 0
@@ -2404,10 +2405,11 @@ SoundDataTbl:
                 .word 0
                 .word 0
 
-                .word 0		; 32
-                .word 0
-                .word 0
-                .word 0
+		.import pauseCh0, pauseCh1, pauseCh23
+                .word pauseCh0		; 32
+                .word pauseCh1
+                .word pauseCh23
+                .word pauseCh23
 
 		.import attractCh0, attractCh1, attractCh2
                 .word attractCh0	; 33

@@ -1,8 +1,11 @@
-$01 - tengen logo
-$0f - block breaking sfx
-$11 - head butt sfx
-$13 - punch/kick sfx
-$16 - menu music
-$1a - punch/kick without breaking things sfx
-$21 - attract mode theme
-$22 - title screen theme
+1 - tengen logo
+10 - stage music
+15 - block breaking sfx
+17 - head butt sfx
+19 - punch/kick sfx
+22 - menu music
+25 - death sfx
+26 - punch/kick without breaking things sfx
+32 - pause
+33 - attract mode theme
+34 - title screen theme
