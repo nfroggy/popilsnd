@@ -2,6 +2,8 @@
 .include "sounds/cmds.inc"
 
 .include "sounds/tengenLogo.asm"
+.include "sounds/editorPlace.asm"
+.include "sounds/editorError.asm"
 .include "sounds/level.asm"
 .include "sounds/gameOver.asm"
 .include "sounds/badClear.asm"
@@ -14,6 +16,8 @@
 .include "sounds/editorMusic.asm"
 .include "sounds/death.asm"
 .include "sounds/punchSolid.asm"
+.include "sounds/editorChange.asm"
+.include "sounds/editorMove.asm"
 .include "sounds/pause.asm"
 .include "sounds/goodClear.asm"
 .include "sounds/roundsUnlocked.asm"

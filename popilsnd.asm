@@ -2258,14 +2258,16 @@ SoundDataTbl:
                 .word 0
                 .word noiseTest
 
+		.import editorPlaceCh1
                 .word 0		; 3
-                .word 0
+                .word editorPlaceCh1
                 .word 0
                 .word 0
 
+		.import editorErrorCh1, editorErrorCh2
                 .word 0		; 4
-                .word 0
-                .word 0
+                .word editorErrorCh1
+                .word editorErrorCh2
                 .word 0
 
                 .word 0		; 5
@@ -2405,13 +2407,15 @@ SoundDataTbl:
                 .word 0
                 .word 0
 
+		.import editorChangeCh2
                 .word 0		; 30
                 .word 0
-                .word 0
+                .word editorChangeCh2
                 .word 0
 
+		.import editorMoveCh1
                 .word 0		; 31
-                .word 0
+                .word editorMoveCh1
                 .word 0
                 .word 0
 
