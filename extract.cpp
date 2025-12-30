@@ -67,7 +67,7 @@ typedef struct {
 	std::array<std::map<uint16_t, Command>, NUM_CHANNELS> channels;
 } Sound;
 
-static void getChannelData(std::map<uint16_t, Command> *cmdMap, uint16_t addr) {
+static void getChannelData(std::map<uint16_t, Command> *cmdMap, uint16_t addr, int8_t tweak) {
 	while (1) {
 		Command &command = (*cmdMap)[addr];
 		command = {};
@@ -93,7 +93,7 @@ static void getChannelData(std::map<uint16_t, Command> *cmdMap, uint16_t addr) {
 		// note
 		else {
 			command.cmd = nullptr;
-			command.data.params[0] = cmdByte; // note
+			command.data.params[0] = cmdByte + tweak; // note
 			uint8_t lenByte = getByte(addr++);
 			command.data.params[1] = lenByte;
 		}
@@ -139,8 +139,13 @@ static void getSoundData(int id, std::string name, int8_t transpose) {
 	uint16_t soundAddr = SOUND_TBL_ADDR + (id * NUM_CHANNELS * sizeof(uint16_t));
 	for (int i = 0; i < NUM_CHANNELS; i++) {
 		uint16_t chanAddr = getWord(soundAddr + i * sizeof(uint16_t));
+		int8_t tweak = 0;
+		if ((id == 17) && (i == 3)) {
+			chanAddr = 0xb5d8;
+			tweak = 5;
+		}
 		if (chanAddr) {
-			getChannelData(&sound.channels[i], chanAddr);
+			getChannelData(&sound.channels[i], chanAddr, tweak);
 		}
 	}
 
@@ -169,8 +174,10 @@ int main(int argc, char **argv) {
 	getSoundData(6, "punchNothing", 12);
 	getSoundData(7, "headButt", 12);
 	getSoundData(8, "punchBlock", 12);
+	getSoundData(9, "teleport", 12);
 	//getSoundData(10, "pause", 12);
 	getSoundData(11, "death", 12);
+	getSoundData(12, "punchSolid", 12);
 	getSoundData(17, "attract", 7);
 	getSoundData(19, "title", 12);
 	getSoundData(22, "menu", 12);

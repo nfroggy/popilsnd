@@ -2350,8 +2350,9 @@ SoundDataTbl:
                 .word 0
                 .word punchBlockCh3
 
+		.import teleportCh1
                 .word 0		; 20
-                .word 0
+                .word teleportCh1
                 .word 0
                 .word 0
 
@@ -2383,10 +2384,11 @@ SoundDataTbl:
                 .word 0
                 .word 0
 
+		.import punchSolidCh1, punchSolidCh3
                 .word 0		; 26
+                .word punchSolidCh1
                 .word 0
-                .word 0
-                .word 0
+                .word punchSolidCh3
 
                 .word 0		; 27
                 .word 0
@@ -2419,11 +2421,11 @@ SoundDataTbl:
                 .word pauseCh23
                 .word pauseCh23
 
-		.import attractCh0, attractCh1, attractCh2
+		.import attractCh0, attractCh1, attractCh2, attractCh3
                 .word attractCh0	; 33
                 .word attractCh1
                 .word attractCh2
-                .word 0
+                .word attractCh3
 
 		.import titleCh0, titleCh1, titleCh2
                 .word titleCh0	; 34

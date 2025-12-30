@@ -18,20 +18,20 @@ sound,description,finished
 17,head butt sfx,x
 18,,
 19,punch block sfx,x
-20,teleport sfx,
+20,teleport sfx,x
 21,,
 22,menu music,x
 23,,
 24,level editor music,x
 25,death sfx,x
-26,punch/kick solid object sfx,
+26,punch/kick solid object sfx,x
 27,,
 28,,
 29,,
 30,level editor block change sfx,
 31,level editor cursor move sfx,
 32,pause sfx,x
-33,attract mode music,"x (partial, need noise channel)"
+33,attract mode music,x
 34,title screen music,x
 35,,
 36,good clear music,x
