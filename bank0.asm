@@ -2,15 +2,19 @@
 .include "sounds/cmds.inc"
 
 .include "sounds/tengenLogo.asm"
-.include "sounds/menu.asm"
 .include "sounds/level.asm"
-.include "sounds/pause.asm"
 .include "sounds/gameOver.asm"
-.include "sounds/roundsUnlocked.asm"
 .include "sounds/badClear.asm"
-.include "sounds/goodClear.asm"
-.include "sounds/death.asm"
+.include "sounds/blockBreak.asm"
+.include "sounds/punchNothing.asm"
+.include "sounds/headButt.asm"
+.include "sounds/punchBlock.asm"
+.include "sounds/menu.asm"
 .include "sounds/editorMusic.asm"
+.include "sounds/death.asm"
+.include "sounds/pause.asm"
+.include "sounds/goodClear.asm"
+.include "sounds/roundsUnlocked.asm"
 
 .export noiseTest
 noiseTest:

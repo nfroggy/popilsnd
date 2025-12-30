@@ -165,10 +165,21 @@ int main(int argc, char **argv) {
 	fclose(fp);
 
 	getSoundData(1, "tengenLogo", 12);
+	getSoundData(5, "blockBreak", 0);
+	getSoundData(6, "punchNothing", 12);
+	getSoundData(7, "headButt", 12);
+	getSoundData(8, "punchBlock", 12);
+	//getSoundData(10, "pause", 12);
+	getSoundData(11, "death", 12);
 	getSoundData(17, "attract", 7);
 	getSoundData(19, "title", 12);
 	getSoundData(22, "menu", 12);
 	getSoundData(23, "level", 12);
+	getSoundData(25, "goodClear", 12);
+	getSoundData(26, "roundsUnlocked", 12);
+	getSoundData(27, "gameOver", 12);
+	getSoundData(28, "badClear", 12);
+	getSoundData(34, "editorMusic", 12);
 
 	return 0;
 }

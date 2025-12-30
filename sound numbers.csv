@@ -13,11 +13,11 @@ sound,description,finished
 12,bad clear music,x
 13,,
 14,,
-15,block breaking sfx,
-16,,
-17,head butt sfx,
+15,block breaking sfx,x
+16,punch nothing sfx,"x (partial, need ch 1)"
+17,head butt sfx,x
 18,,
-19,punch/kick sfx,
+19,punch block sfx,x
 20,teleport sfx,
 21,,
 22,menu music,x

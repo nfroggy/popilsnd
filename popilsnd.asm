@@ -2320,31 +2320,35 @@ SoundDataTbl:
                 .word 0
                 .word 0
                 .word 0
-
+		
+		.import blockBreakCh1, blockBreakCh3
                 .word 0		; 15
+                .word blockBreakCh1
                 .word 0
-                .word 0
-                .word 0
-
+                .word blockBreakCh3
+		
+		.import punchNothingCh3
                 .word 0		; 16
+                .word 0		; there's supposed to be a sound here but it's not in game gear
                 .word 0
-                .word 0
-                .word 0
+                .word punchNothingCh3
 
+		.import headButtCh1, headButtCh3
                 .word 0		; 17
+                .word headButtCh1
                 .word 0
-                .word 0
-                .word 0
+                .word headButtCh3
 
                 .word 0		; 18
                 .word 0
                 .word 0
                 .word 0
 
+		.import punchBlockCh1, punchBlockCh3
                 .word 0		; 19
+                .word punchBlockCh1
                 .word 0
-                .word 0
-                .word 0
+                .word punchBlockCh3
 
                 .word 0		; 20
                 .word 0
