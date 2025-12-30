@@ -5,6 +5,12 @@
 .include "sounds/menu.asm"
 .include "sounds/level.asm"
 .include "sounds/pause.asm"
+.include "sounds/gameOver.asm"
+.include "sounds/roundsUnlocked.asm"
+.include "sounds/badClear.asm"
+.include "sounds/goodClear.asm"
+.include "sounds/death.asm"
+.include "sounds/editorMusic.asm"
 
 .export noiseTest
 noiseTest:

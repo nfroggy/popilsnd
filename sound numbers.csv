@@ -1,0 +1,38 @@
+sound,description,finished
+1,tengen logo,x
+2,,
+3,level editor place sfx,
+4,,
+5,,
+6,,
+7,,
+8,,
+9,,
+10,stage music,x
+11,game over music,x
+12,bad clear music,x
+13,,
+14,,
+15,block breaking sfx,
+16,,
+17,head butt sfx,
+18,,
+19,punch/kick sfx,
+20,teleport sfx,
+21,,
+22,menu music,x
+23,,
+24,level editor music,x
+25,death sfx,x
+26,punch/kick solid object sfx,
+27,,
+28,,
+29,,
+30,level editor block change sfx,
+31,level editor cursor move sfx,
+32,pause sfx,x
+33,attract mode music,"x (partial, need noise channel)"
+34,title screen music,x
+35,,
+36,good clear music,x
+37,selectable rounds increased music,x

@@ -2299,14 +2299,16 @@ SoundDataTbl:
                 .word levelCh2
                 .word 0
 
-                .word 0		; 11
-                .word 0
-                .word 0
+		.import gameOverCh0, gameOverCh1, gameOverCh2
+                .word gameOverCh0		; 11
+                .word gameOverCh1
+                .word gameOverCh2
                 .word 0
 
-                .word 0		; 12
-                .word 0
-                .word 0
+		.import badClearCh0, badClearCh1, badClearCh2
+                .word badClearCh0		; 12
+                .word badClearCh1
+                .word badClearCh2
                 .word 0
 
                 .word 0		; 13
@@ -2365,13 +2367,15 @@ SoundDataTbl:
                 .word 0
                 .word 0
 
-                .word 0		; 24
-                .word 0
-                .word 0
+		.import editorMusicCh0, editorMusicCh1, editorMusicCh2
+                .word editorMusicCh0		; 24
+                .word editorMusicCh1
+                .word editorMusicCh2
                 .word 0
 
-                .word 0		; 25
-                .word 0
+		.import deathCh0, deathCh1
+                .word deathCh0		; 25
+                .word deathCh1
                 .word 0
                 .word 0
 
@@ -2428,14 +2432,16 @@ SoundDataTbl:
                 .word 0
                 .word 0
 
-                .word 0		; 36
-                .word 0
-                .word 0
+		.import goodClearCh0, goodClearCh1, goodClearCh2
+                .word goodClearCh0		; 36
+                .word goodClearCh1
+                .word goodClearCh2
                 .word 0
 
-                .word 0		; 37
-                .word 0
-                .word 0
+		.import roundsUnlockedCh0, roundsUnlockedCh1, roundsUnlockedCh2
+                .word roundsUnlockedCh0		; 37
+                .word roundsUnlockedCh1
+                .word roundsUnlockedCh2
                 .word 0
 
                 .word 0		; 38
