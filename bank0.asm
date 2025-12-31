@@ -16,6 +16,8 @@
 .include "sounds/editorMusic.asm"
 .include "sounds/death.asm"
 .include "sounds/punchSolid.asm"
+.include "sounds/highScoreEntry.asm"
+.include "sounds/highScoreEntryDone.asm"
 .include "sounds/editorChange.asm"
 .include "sounds/editorMove.asm"
 .include "sounds/pause.asm"

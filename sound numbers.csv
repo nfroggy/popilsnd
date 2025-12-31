@@ -26,8 +26,8 @@ sound,description,finished
 25,death sfx,x
 26,punch/kick solid object sfx,x
 27,,
-28,,
-29,,
+28,high score entry music,x
+29,post high score entry music,x
 30,level editor block change sfx,x
 31,level editor cursor move sfx,x
 32,pause sfx,x

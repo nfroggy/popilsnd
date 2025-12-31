@@ -2396,15 +2396,17 @@ SoundDataTbl:
                 .word 0
                 .word 0
                 .word 0
+		
+		.import highScoreEntryCh0, highScoreEntryCh1, highScoreEntryCh2
+                .word highScoreEntryCh0	; 28
+                .word highScoreEntryCh1
+                .word highScoreEntryCh2
+                .word 0
 
-                .word 0		; 28
-                .word 0
-                .word 0
-                .word 0
-
-                .word 0		; 29
-                .word 0
-                .word 0
+		.import highScoreEntryDoneCh0, highScoreEntryDoneCh1, highScoreEntryDoneCh2
+                .word highScoreEntryDoneCh0		; 29
+                .word highScoreEntryDoneCh1
+                .word highScoreEntryDoneCh2
                 .word 0
 
 		.import editorChangeCh2
