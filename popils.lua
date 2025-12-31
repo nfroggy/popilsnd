@@ -3,14 +3,16 @@
 --Type "emu." to show a list of all available API function
 
 function printMusic(address, value)
-	if value ~= 0 then
-		emu.displayMessage("music", emu.read(0x600, emu.memType.nesDebug, false))
+	value = emu.read(0x600, emu.memType.nesDebug, false)
+	if value ~= 0 and value < 128 then
+		emu.displayMessage("music", value)
 	end
 end
 
 function printSfx(address, value)
-	if value ~= 0 then
-		emu.displayMessage("sfx", emu.read(0x601, emu.memType.nesDebug, false))
+	value = emu.read(0x601, emu.memType.nesDebug, false)
+	if value ~= 0 and value < 128 then
+		emu.displayMessage("sfx", value)
 	end
 end
 
